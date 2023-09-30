@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1495" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/activity_item_list.xml" value="0.22" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/author_item_layout.xml" value="0.22" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/book_home.xml" value="0.25" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/book_item.xml" value="0.22" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/login.xml" value="0.22" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/layout/manager_layout.xml" value="0.25" />
+        <entry key="..\:/Hk1nam4/dev/End/EbookApp/app/src/main/res/menu/option_item.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
