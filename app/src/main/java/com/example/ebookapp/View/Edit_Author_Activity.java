@@ -87,6 +87,7 @@ public class Edit_Author_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
+            //......
         });
 
     }
