@@ -2,9 +2,11 @@ package com.example.ebookapp.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +28,8 @@ public class Author_List_Activity extends AppCompatActivity {
     public static final int REQ_INSERT_AUTHOR = 1001;
     public static final int RES_INSERT_AUTHOR = 1002;
 
-
+    SearchView searchView;
     ListView listViewItem;
-    AutoCompleteTextView searchEdit;
     AuthorAdapter authorAdapter;
     ArrayList<Author> arrAuthor;
     AuthorHandler db;
@@ -59,12 +60,37 @@ public class Author_List_Activity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(TextUtils.isEmpty(query))
+                {
+                    authorAdapter.filter("");
+                }
+                else {
+                    authorAdapter.filter(query);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(TextUtils.isEmpty(newText))
+                {
+                    authorAdapter.filter("");
+                }
+                else {
+                    authorAdapter.filter(newText);
+                }
+                return false;
+            }
+        });
     }
 
     private void init()
     {
         listViewItem = findViewById(R.id.listviewItem);
-        searchEdit = findViewById(R.id.search_edit);
+        searchView = findViewById(R.id.search_Author);
         showitem = findViewById(R.id.showitem);
 
         db = new AuthorHandler(Author_List_Activity.this);
@@ -76,8 +102,9 @@ public class Author_List_Activity extends AppCompatActivity {
     private void LoadListView()
     {
         arrAuthor.clear();
-        arrAuthor.addAll(db.getall()) ;
-        authorAdapter.notifyDataSetChanged();
+        arrAuthor.addAll(db.getall());
+        authorAdapter.loadingData();
+
     }
 
     private void showPopup(View v) {
