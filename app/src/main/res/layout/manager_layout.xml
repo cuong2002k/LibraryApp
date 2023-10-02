@@ -125,7 +125,10 @@
             android:layout_columnWeight="1"
             app:cardElevation="8dp"
             app:cardCornerRadius="25dp"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:id="@+id/cardAuthor"
+            >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,13 +162,17 @@
             android:layout_columnWeight="1"
             app:cardElevation="8dp"
             app:cardCornerRadius="25dp"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:id="@+id/cardCategory"
+            >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:gravity="center"
                 android:orientation="vertical"
+
                 >
                 <ImageView
                     android:layout_width="100dp"

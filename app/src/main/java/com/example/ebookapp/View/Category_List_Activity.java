@@ -6,103 +6,87 @@ import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import com.example.ebookapp.Adapter.AuthorAdapter;
+import com.example.ebookapp.Adapter.CategoryAdapter;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
+import com.example.ebookapp.DatabaseHandler.CategoryHandler;
 import com.example.ebookapp.Model.Author;
+import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.R;
 
 import java.util.ArrayList;
 
-public class Author_List_Activity extends AppCompatActivity {
+public class Category_List_Activity extends AppCompatActivity {
 
-    public static final int REQ_INSERT_AUTHOR = 1001;
-    public static final int RES_INSERT_AUTHOR = 1002;
+    public static final int REQ_INSERT_CATEGORY = 1003;
+    public static final int RES_INSERT_CATEGORY = 1004;
 
     SearchView searchView;
     ListView listViewItem;
-    AuthorAdapter authorAdapter;
-    ArrayList<Author> arrAuthor;
-    AuthorHandler db;
+    CategoryAdapter categoryAdapter;
+    ArrayList<Category> arrCategory;
+    CategoryHandler db;
     ImageView showItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_author_list);
+        setContentView(R.layout.activity_category_list);
         init();
+        doShowOption();
+        doSearchView();
+    }
 
+    public void init()
+    {
+        listViewItem = findViewById(R.id.listviewItem);
+        db = new CategoryHandler(Category_List_Activity.this);
+        fillDataToListview();
+    }
+
+    public void fillDataToListview()
+    {
+        db.insertData(new Category("Action"));
+        arrCategory = db.getAll();
+        categoryAdapter = new CategoryAdapter(arrCategory);
+        listViewItem.setAdapter(categoryAdapter);
+    }
+
+    private void doShowOption()
+    {
+        showItem = findViewById(R.id.showitem);
         showItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPopup(view);
             }
         });
+    }
 
-        listViewItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                intent.setClass(Author_List_Activity.this, Edit_Author_Activity.class);
-                Bundle author = new Bundle();
-                author.putSerializable("Author", (Author)authorAdapter.getItem(i));
-                intent.putExtra("Author", author);
-                intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT_AUTHOR);
-            }
-        });
-
+    private void doSearchView()
+    {
+        searchView = findViewById(R.id.search_Author);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(TextUtils.isEmpty(query))
-                {
-                    authorAdapter.filter("");
-                }
-                else {
-                    authorAdapter.filter(query);
-                }
+                categoryAdapter.filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(TextUtils.isEmpty(newText))
-                {
-                    authorAdapter.filter("");
-                }
-                else {
-                    authorAdapter.filter(newText);
-                }
+                categoryAdapter.filter(newText);
                 return false;
             }
         });
-    }
 
-    private void init()
-    {
-        listViewItem = findViewById(R.id.listviewItem);
-        searchView = findViewById(R.id.search_Author);
-        showItem = findViewById(R.id.showitem);
-
-        db = new AuthorHandler(Author_List_Activity.this);
-        arrAuthor = db.getall();
-        authorAdapter = new AuthorAdapter(arrAuthor);
-        listViewItem.setAdapter(authorAdapter);
-    }
-
-    private void LoadListView()
-    {
-        arrAuthor.clear();
-        arrAuthor.addAll(db.getall());
-        authorAdapter.loadingData();
     }
 
     private void showPopup(View v) {
@@ -116,12 +100,10 @@ public class Author_List_Activity extends AppCompatActivity {
                 switch (id)
                 {
                     case R.id.createitem:
-                        Intent intent = new Intent();
-                        intent.setClass(Author_List_Activity.this, Edit_Author_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT_AUTHOR);
+
                         return true;
                     case R.id.showallitem:
-                        LoadListView();
+
                         return true;
                     case R.id.backitem:
                         finish();
@@ -135,14 +117,21 @@ public class Author_List_Activity extends AppCompatActivity {
         popup.show();
     }
 
+    private void LoadListView()
+    {
+        arrCategory.clear();
+        arrCategory.addAll(db.getAll());
+        categoryAdapter.loadingData();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode)
         {
-            case REQ_INSERT_AUTHOR:
-                if(resultCode == RES_INSERT_AUTHOR)
+            case REQ_INSERT_CATEGORY:
+                if(resultCode == RES_INSERT_CATEGORY)
                 {
                     LoadListView();
                 }
