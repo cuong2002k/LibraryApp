@@ -14,59 +14,60 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.example.ebookapp.Adapter.CategoryAdapter;
-import com.example.ebookapp.DatabaseHandler.CategoryHandler;
-import com.example.ebookapp.Model.Category;
+import com.example.ebookapp.Adapter.ReaderAdapter;
+import com.example.ebookapp.DatabaseHandler.ReaderHandler;
+import com.example.ebookapp.Model.Author;
+import com.example.ebookapp.Model.Reader;
 import com.example.ebookapp.R;
 
 import java.util.ArrayList;
 
-public class Category_List_Activity extends AppCompatActivity {
+public class Reader_List_Activity extends AppCompatActivity {
 
-    public static final int REQ_INSERT_CATEGORY = 1003;
-    public static final int RES_INSERT_CATEGORY = 1004;
-
+    public static final int REQ_INSERT = 1005;
+    public static final int RES_INSERT = 1005;
     SearchView searchView;
     ListView listViewItem;
-    CategoryAdapter categoryAdapter;
-    ArrayList<Category> arrCategory;
-    CategoryHandler db;
+    ReaderAdapter Adapter;
+    ArrayList<Reader> arr;
+    ReaderHandler db;
     ImageView showItem;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_list);
-        init();
+        setContentView(R.layout.activity_reader_list);
+        db = new ReaderHandler(Reader_List_Activity.this);
         doShowOption();
+        fillData();
         doSearchView();
     }
-
-    public void init()
+    private void fillData()
     {
         listViewItem = findViewById(R.id.listviewItem);
-        db = new CategoryHandler(Category_List_Activity.this);
-        fillDataToListview();
-    }
-
-    public void fillDataToListview()
-    {
-        arrCategory = db.getAll();
-        categoryAdapter = new CategoryAdapter(arrCategory);
-        listViewItem.setAdapter(categoryAdapter);
-
+        arr = db.getAllReader();
+        Adapter = new ReaderAdapter(arr);
+        listViewItem.setAdapter(Adapter);
         listViewItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
-                intent.setClass(Category_List_Activity.this, Category_Edit_Activity.class);
+                intent.setClass(Reader_List_Activity.this, Reader_Edit_Activity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Category", (Category)categoryAdapter.getItem(i));
-                intent.putExtra("Category", bundle);
+
+                bundle.putSerializable("Reader", (Reader) Adapter.getItem(i));
+                intent.putExtra("Reader", bundle);
                 intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT_CATEGORY);
+                startActivityForResult(intent, REQ_INSERT);
             }
         });
+
+    }
+    private void LoadListView()
+    {
+        arr.clear();
+        arr.addAll(db.getAllReader());
+        Adapter.loadingData();
+
     }
 
     private void doShowOption()
@@ -78,25 +79,6 @@ public class Category_List_Activity extends AppCompatActivity {
                 showPopup(view);
             }
         });
-    }
-
-    private void doSearchView()
-    {
-        searchView = findViewById(R.id.search_item);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                categoryAdapter.filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                categoryAdapter.filter(newText);
-                return false;
-            }
-        });
-
     }
 
     private void showPopup(View v) {
@@ -111,11 +93,11 @@ public class Category_List_Activity extends AppCompatActivity {
                 {
                     case R.id.createitem:
                         Intent intent = new Intent();
-                        intent.setClass(Category_List_Activity.this, Category_Edit_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT_CATEGORY);
+                        intent.setClass(Reader_List_Activity.this, Reader_Edit_Activity.class);
+                        startActivityForResult(intent, REQ_INSERT);
                         return true;
                     case R.id.showallitem:
-                        LoadListView();
+//                        LoadListView();
                         return true;
                     case R.id.backitem:
                         finish();
@@ -129,22 +111,34 @@ public class Category_List_Activity extends AppCompatActivity {
         popup.show();
     }
 
-    private void LoadListView()
+    private void doSearchView()
     {
-        arrCategory.clear();
-        arrCategory.addAll(db.getAll());
-        categoryAdapter.loadingData();
+        searchView = findViewById(R.id.search_item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Adapter.filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Adapter.filter(newText);
+                return false;
+            }
+        });
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         switch (requestCode)
         {
-            case REQ_INSERT_CATEGORY:
-                if(resultCode == RES_INSERT_CATEGORY)
+            case REQ_INSERT:
+                if(resultCode == RES_INSERT)
                 {
-                    //Toast.makeText(Category_List_Activity.this, "oke", Toast.LENGTH_LONG).show();
                     LoadListView();
                 }
                 break;

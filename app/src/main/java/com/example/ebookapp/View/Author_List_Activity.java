@@ -89,7 +89,7 @@ public class Author_List_Activity extends AppCompatActivity {
     private void init()
     {
         listViewItem = findViewById(R.id.listviewItem);
-        searchView = findViewById(R.id.search_Author);
+        searchView = findViewById(R.id.search_item);
         showItem = findViewById(R.id.showitem);
 
         db = new AuthorHandler(Author_List_Activity.this);

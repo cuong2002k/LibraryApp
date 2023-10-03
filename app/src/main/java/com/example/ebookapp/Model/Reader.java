@@ -18,6 +18,14 @@ public class Reader implements Serializable {
         this.city = city;
     }
 
+    public Reader(int readerId, String name, String address, String phone, String city) {
+        this.readerId = readerId;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.city = city;
+    }
+
     public int getReaderId() {
         return readerId;
     }

@@ -20,7 +20,7 @@
             <androidx.appcompat.widget.SearchView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/search_Author"
+                android:id="@+id/search_item"
                 android:background="#fff"
                 android:layout_weight="1"
 
