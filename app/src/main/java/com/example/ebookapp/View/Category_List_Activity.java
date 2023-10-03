@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.ebookapp.Adapter.AuthorAdapter;
 import com.example.ebookapp.Adapter.CategoryAdapter;
@@ -53,10 +55,22 @@ public class Category_List_Activity extends AppCompatActivity {
 
     public void fillDataToListview()
     {
-        db.insertData(new Category("Action"));
         arrCategory = db.getAll();
         categoryAdapter = new CategoryAdapter(arrCategory);
         listViewItem.setAdapter(categoryAdapter);
+
+        listViewItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent();
+                intent.setClass(Category_List_Activity.this, Category_Edit_Activity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Category", (Category)categoryAdapter.getItem(i));
+                intent.putExtra("Category", bundle);
+                intent.putExtra("isUpdate", true);
+                startActivityForResult(intent, REQ_INSERT_CATEGORY);
+            }
+        });
     }
 
     private void doShowOption()
@@ -100,10 +114,12 @@ public class Category_List_Activity extends AppCompatActivity {
                 switch (id)
                 {
                     case R.id.createitem:
-
+                        Intent intent = new Intent();
+                        intent.setClass(Category_List_Activity.this, Category_Edit_Activity.class);
+                        startActivityForResult(intent, REQ_INSERT_CATEGORY);
                         return true;
                     case R.id.showallitem:
-
+                        LoadListView();
                         return true;
                     case R.id.backitem:
                         finish();
@@ -127,12 +143,12 @@ public class Category_List_Activity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode)
         {
             case REQ_INSERT_CATEGORY:
                 if(resultCode == RES_INSERT_CATEGORY)
                 {
+                    //Toast.makeText(Category_List_Activity.this, "oke", Toast.LENGTH_LONG).show();
                     LoadListView();
                 }
                 break;

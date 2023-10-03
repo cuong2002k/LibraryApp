@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,12 +14,12 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/menu_icon"
+            app:srcCompat="@drawable/menu_icon"
             />
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/search_icon"
+            app:srcCompat="@drawable/search_icon"
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
@@ -49,13 +50,13 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bimg_1"
+                app:srcCompat="@drawable/bimg_1"
                 android:layout_marginRight="10dp"
                 />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/bimg_2"
+                app:srcCompat="@drawable/bimg_2"
                 />
         </LinearLayout>
 
@@ -76,13 +77,13 @@
             <ImageView
                 android:layout_width="180dp"
                 android:layout_height="210dp"
-                android:src="@drawable/simg_1"
+                app:srcCompat="@drawable/simg_1"
                 android:layout_marginRight="20dp"
                 />
             <ImageView
                 android:layout_width="180dp"
                 android:layout_height="210dp"
-                android:src="@drawable/simg_2"/>
+                app:srcCompat="@drawable/simg_2"/>
 
 
         </LinearLayout>

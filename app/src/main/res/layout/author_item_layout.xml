@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="ID"
         android:textSize="20dp"
-        android:id="@+id/txtAuthorID"
+        android:id="@+id/txtID"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
         android:textSize="20dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:id="@+id/txtAuthorName"
+        android:id="@+id/txtName"
         />
 
 </LinearLayout>

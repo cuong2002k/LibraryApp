@@ -52,7 +52,8 @@ public class CategoryHandler {
             value.put(DatabaseHandler.CATEGORY_name, category.getName());
             SQLiteDatabase db = dbhandler.getWritableDatabase();
             db.insert(DatabaseHandler.CATEGORY_TB_NAME, null, value);
-            return  true;
+            db.close();
+            return true;
         }
         catch (Exception ex)
         {
@@ -83,7 +84,7 @@ public class CategoryHandler {
     {
         try
         {
-            ContentValues value = new ContentValues();
+
             SQLiteDatabase db = dbhandler.getWritableDatabase();
             db.delete(DatabaseHandler.CATEGORY_TB_NAME,
                       DatabaseHandler.CATEGORY_ID + "=?",

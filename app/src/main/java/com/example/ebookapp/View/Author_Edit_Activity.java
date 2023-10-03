@@ -8,13 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
 import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.R;
 
-public class Edit_Author_Activity extends AppCompatActivity {
+public class Author_Edit_Activity extends AppCompatActivity {
 
     Button saveAuthor;
     Button deleteAuthor;
@@ -27,10 +26,11 @@ public class Edit_Author_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_author);
         saveAuthor = findViewById(R.id.btn_Save_Author);
-        txtAuthor = findViewById(R.id.txtAuthorName);
+        txtAuthor = findViewById(R.id.AuthorName);
         deleteAuthor = findViewById(R.id.btn_Delete_Author);
         image_back = findViewById(R.id.btn_Back_Author);
-        handler = new AuthorHandler(Edit_Author_Activity.this);
+
+        handler = new AuthorHandler(Author_Edit_Activity.this);
         Intent intent = getIntent();
         boolean isUpdate = intent.getBooleanExtra("isUpdate", false);
 

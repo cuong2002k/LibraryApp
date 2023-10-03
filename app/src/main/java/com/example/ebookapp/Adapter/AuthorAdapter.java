@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.R;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,8 +44,8 @@ public class AuthorAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
         } else viewProduct = view;
         Author author = (Author) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.txtAuthorID)).setText(author.getId() + "");
-        ((TextView) viewProduct.findViewById(R.id.txtAuthorName)).setText(author.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.txtID)).setText(author.getId() + "");
+        ((TextView) viewProduct.findViewById(R.id.txtName)).setText(author.getName() + "");
         return viewProduct;
     }
 
@@ -69,5 +68,6 @@ public class AuthorAdapter extends BaseAdapter {
     {
         lstAuthor.clear();
         this.lstAuthor.addAll(arrAuthor);
+
     }
 }

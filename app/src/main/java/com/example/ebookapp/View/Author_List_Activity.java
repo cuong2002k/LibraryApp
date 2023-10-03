@@ -50,7 +50,7 @@ public class Author_List_Activity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
-                intent.setClass(Author_List_Activity.this, Edit_Author_Activity.class);
+                intent.setClass(Author_List_Activity.this, Author_Edit_Activity.class);
                 Bundle author = new Bundle();
                 author.putSerializable("Author", (Author)authorAdapter.getItem(i));
                 intent.putExtra("Author", author);
@@ -117,7 +117,7 @@ public class Author_List_Activity extends AppCompatActivity {
                 {
                     case R.id.createitem:
                         Intent intent = new Intent();
-                        intent.setClass(Author_List_Activity.this, Edit_Author_Activity.class);
+                        intent.setClass(Author_List_Activity.this, Author_Edit_Activity.class);
                         startActivityForResult(intent, REQ_INSERT_AUTHOR);
                         return true;
                     case R.id.showallitem:

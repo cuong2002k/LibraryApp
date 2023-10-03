@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.R;
 
@@ -45,8 +44,8 @@ public class CategoryAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
         } else viewProduct = view;
         Category category = (Category) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.txtAuthorID)).setText(category.getId() + "");
-        ((TextView) viewProduct.findViewById(R.id.txtAuthorName)).setText(category.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.txtID)).setText(category.getId() + "");
+        ((TextView) viewProduct.findViewById(R.id.txtName)).setText(category.getName() + "");
         return viewProduct;
     }
 
@@ -67,7 +66,8 @@ public class CategoryAdapter extends BaseAdapter {
 
     public void loadingData()
     {
-        lstCategory.clear();
-        lstCategory.addAll(arrCategory);
+        this.lstCategory.clear();
+        this.lstCategory.addAll(arrCategory);
+        notifyDataSetChanged();
     }
 }

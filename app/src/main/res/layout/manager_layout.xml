@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/logo"
+            app:srcCompat="@drawable/logo"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@drawable/item_2"
+                        app:srcCompat="@drawable/item_2"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/reaer"
+                    app:srcCompat="@drawable/reaer"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/usericon"
+                    app:srcCompat="@drawable/usericon"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
 
-                    android:src="@drawable/library"
+                    app:srcCompat="@drawable/library"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/borrow"
+                    app:srcCompat="@drawable/borrow"
                     />
                 <TextView
                     android:layout_width="wrap_content"

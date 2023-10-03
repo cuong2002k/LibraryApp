@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EbookApp">
         <activity
+            android:name=".View.Category_Edit_Activity"
+            android:exported="true" />
+        <activity
             android:name=".View.Category_List_Activity"
             android:exported="false" />
         <activity
-            android:name=".View.Edit_Author_Activity"
+            android:name=".View.Author_Edit_Activity"
             android:exported="false" />
         <activity
             android:name=".View.MainActivity"

@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Category_List_Activity">
+
     <include
-        layout="@layout/fragment_item_list_layout"/>
+        layout="@layout/fragment_item_list_layout"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="163dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@
                android:layout_width="30dp"
                android:layout_height="30dp"
                android:layout_gravity="center_vertical"
-               android:src="@drawable/logo"
+               app:srcCompat="@drawable/logo"
             ></ImageView>
         <TextView
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/img_1"
+            app:srcCompat="@drawable/img_1"
             >
         </ImageView>
         <TextView
