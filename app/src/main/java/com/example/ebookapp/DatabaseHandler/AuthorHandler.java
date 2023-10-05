@@ -42,6 +42,30 @@ public class AuthorHandler {
             data.close();
             return lstAuthor;
     }
+
+    public Author getAuthorWithID(int id)
+    {
+
+        sql = "Select * from " + DatabaseHandler.AUTHOR_TB_NAME + " " +
+                "where " + DatabaseHandler.AUTHOR_ID + " =?";
+        db = database.getReadableDatabase();
+        Cursor data = db.rawQuery(sql, new String[]{id + ""});
+        data.moveToFirst();
+        while(!data.isAfterLast())
+        {
+            int idAuthor = data.getInt(0);
+            String name =  data.getString(1);
+            Author author = new Author(
+                    idAuthor , name
+            );
+            data.close();
+            return author;
+        }
+
+        return null;
+
+    }
+
     public boolean insertData(Author author)
     {
         TAG = "Insert author";

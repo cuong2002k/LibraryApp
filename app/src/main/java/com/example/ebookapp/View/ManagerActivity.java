@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView;
 import com.example.ebookapp.R;
 
 public class ManagerActivity extends AppCompatActivity {
-    private CardView cardAuthor, cardCategory, cardReader;
+    private CardView cardAuthor, cardCategory, cardReader,cardBook;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,7 @@ public class ManagerActivity extends AppCompatActivity {
         DoAuthorActivity();
         DoCategoryActivity();
         DoReaderActivity();
+        DoBookActivity();
 
     }
 
@@ -46,7 +47,6 @@ public class ManagerActivity extends AppCompatActivity {
             }
         });
     }
-
     private void DoReaderActivity()
     {
         cardReader = findViewById(R.id.cardReader);
@@ -55,6 +55,18 @@ public class ManagerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(ManagerActivity.this, Reader_List_Activity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    private void DoBookActivity()
+    {
+        cardBook = findViewById(R.id.cardBook);
+        cardBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(ManagerActivity.this, Book_List_Activity.class);
                 startActivity(intent);
             }
         });

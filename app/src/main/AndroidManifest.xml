@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EbookApp">
         <activity
+            android:name=".View.Book_Edit_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".View.Book_List_Activity"
+            android:exported="false" />
+        <activity
             android:name=".View.Reader_Edit_Activity"
             android:exported="false" />
         <activity
