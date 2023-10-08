@@ -48,8 +48,8 @@ public class ReaderAdapter extends BaseAdapter {
         } else viewProduct = view;
         Reader reader = (Reader) getItem(i);
         ((TextView) viewProduct.findViewById(R.id.idReader)).setText(reader.getReaderId() + "");
-        ((TextView) viewProduct.findViewById(R.id.nameReader)).setText(reader.getName() + "");
-        ((TextView) viewProduct.findViewById(R.id.phoneReader)).setText(reader.getPhone() + "");
+        ((TextView) viewProduct.findViewById(R.id.nameReader)).setText("Name: " + reader.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.phoneReader)).setText("Phone: " + reader.getPhone() + "");
         return viewProduct;
     }
 

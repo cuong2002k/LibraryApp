@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.ebookapp.Adapter.BookAdapter;
 import com.example.ebookapp.Adapter.ReaderAdapter;
@@ -43,25 +44,36 @@ public class Book_List_Activity extends AppCompatActivity {
         doShowOption();
         fillData();
         doSearchView();
+
     }
 
     private void fillData()
     {
         listViewItem = findViewById(R.id.listviewItem);
-        arr = db.getAllBook();
+        arr = new ArrayList<>();
+        arr.addAll(db.getAllBook());
         Adapter = new BookAdapter(arr, Book_List_Activity.this);
         listViewItem.setAdapter(Adapter);
         listViewItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Intent intent = new Intent();
-//                intent.setClass(Book_List_Activity.this, Reader_Edit_Activity.class);
-//                Bundle bundle = new Bundle();
-//
-//                bundle.putSerializable("Reader", (Reader) Adapter.getItem(i));
-//                intent.putExtra("Reader", bundle);
-//                intent.putExtra("isUpdate", true);
-//                startActivityForResult(intent, REQ_INSERT);
+                Intent intent = new Intent();
+                intent.setClass(Book_List_Activity.this, Book_Edit_Activity.class);
+                Bundle bundle = new Bundle();
+                Book book = arr.get(i);
+
+                byte[] image = db.getBitmapAsByteArray(book.getImage());
+
+                intent.putExtra("Image", image );
+
+
+
+                book.setImage(null);
+                bundle.putSerializable("Book", book);
+                intent.putExtra("Book", bundle);
+                intent.putExtra("isUpdate", true);
+                startActivityForResult(intent, REQ_INSERT);
+
             }
         });
 

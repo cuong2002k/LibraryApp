@@ -3,25 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:paddingBottom="20dp"
-    android:paddingTop="20dp"
+    android:layout_margin="20dp"
     >
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="ID"
         android:textSize="20dp"
         android:id="@+id/txtID"
+        android:gravity="center_vertical|center"
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical|center"
         android:text="Name"
         android:textSize="20dp"
         android:layout_weight="1"
-        android:textAlignment="center"
+
         android:id="@+id/txtName"
         />
 

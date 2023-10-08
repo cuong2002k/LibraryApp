@@ -1,5 +1,7 @@
 package com.example.ebookapp.View;
 
+import static android.view.View.GONE;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,14 +11,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ebookapp.Adapter.AuthorAdapter;
+import com.example.ebookapp.Adapter.CategoryAdapter;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.CategoryHandler;
@@ -38,13 +44,15 @@ public class Book_Edit_Activity extends AppCompatActivity {
     BookHandler handler;
     ImageView image_back, show_Image;
     Book bookData;
-    final static int GALLERY_REQ_CODE = 1001;
+    final static int GALLERY_REQ_CODE = 1009;
     ArrayList<Author> lstAuthor;
     ArrayList<Category> lstCategory;
 
     Bitmap bitmapimg;
     Author selectAuthor;
     Category selectCategory;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +70,19 @@ public class Book_Edit_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean isUpdate = intent.getBooleanExtra("isUpdate", false);
         fillSpinner();
+
         if(isUpdate)
         {
             Bundle bundle = intent.getBundleExtra("Book");
             bookData = (Book) bundle.getSerializable("Book");
+
             txtTile.setText(bookData.getTitle().toString());
             txtYear.setText(bookData.getYear().toString());
-            show_Image.setImageBitmap(bookData.getImage());
+            Bitmap bitmap = handler.getImage(intent.getByteArrayExtra("Image"));
+
+            author.setSelection(getIndexAuthor(lstAuthor, bookData.getAuthor()));
+            category.setSelection(getIndexCategory(lstCategory, bookData.getCategory()));
+            show_Image.setImageBitmap(bitmap);
             delete.setVisibility(View.VISIBLE);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,7 +94,7 @@ public class Book_Edit_Activity extends AppCompatActivity {
             });
         }
         else {
-            delete.setVisibility(View.GONE);
+            delete.setVisibility(GONE);
         }
 
         image_back.setOnClickListener(new View.OnClickListener() {
@@ -102,13 +116,15 @@ public class Book_Edit_Activity extends AppCompatActivity {
                     {
                         image = bitmapimg;
                     }
+                    Book book = new Book(bookData.getBookId(),title,selectAuthor.getId(),year,selectCategory.getId(),image);
+                    handler.updateData(book);
 
                 }
                 else {
                     String title = txtTile.getText().toString();
                     String year = txtYear.getText().toString();
                     Bitmap image = bitmapimg;
-                    Book book = new Book(title,1,year,1,image);
+                    Book book = new Book(title,selectAuthor.getId(),year,selectCategory.getId(),image);
                     handler.insertData(book);
                 }
                 setResult(Book_List_Activity.RES_INSERT);
@@ -132,16 +148,37 @@ public class Book_Edit_Activity extends AppCompatActivity {
 
         lstAuthor = authorHandler.getall();
         lstCategory = categoryHandler.getAll();
-        ArrayAdapter<Author> arrayAdapterAuthor = new ArrayAdapter<Author>(Book_Edit_Activity.this,
-                android.R.layout.simple_list_item_1, lstAuthor);
-        arrayAdapterAuthor.setDropDownViewResource(android.R.layout.simple_list_item_1);
 
-        ArrayAdapter<Category> arrayAdapterCategory = new ArrayAdapter<Category>(Book_Edit_Activity.this,
-                android.R.layout.simple_list_item_1, lstCategory);
-        arrayAdapterCategory.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        AuthorAdapter authorAdapter = new AuthorAdapter(lstAuthor){
+            @Override
+            public View getView(int i, View view, ViewGroup viewGroup) {
+                View viewProduct;
+                if (view == null) {
+                    viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
+                } else viewProduct = view;
+                Author author = (Author) getItem(i);
+                ((TextView) viewProduct.findViewById(R.id.txtID)).setText("");
+                ((TextView) viewProduct.findViewById(R.id.txtName)).setText(author.getName() + "");
+                return viewProduct;
+            }
+        };
 
-        author.setAdapter(arrayAdapterAuthor);
-        category.setAdapter(arrayAdapterCategory);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(lstCategory){
+            @Override
+            public View getView(int i, View view, ViewGroup viewGroup) {
+                View viewProduct;
+                if (view == null) {
+                    viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
+                } else viewProduct = view;
+                Category category = (Category) getItem(i);
+                ((TextView) viewProduct.findViewById(R.id.txtID)).setText("");
+                ((TextView) viewProduct.findViewById(R.id.txtName)).setText(category.getName() + "");
+                return viewProduct;
+            }
+        };
+
+        author.setAdapter(authorAdapter);
+        category.setAdapter(categoryAdapter);
 
         author.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -160,7 +197,6 @@ public class Book_Edit_Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectCategory = lstCategory.get(i);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -196,4 +232,24 @@ public class Book_Edit_Activity extends AppCompatActivity {
             }
         }
     }
+
+    private int getIndexAuthor(ArrayList<Author> lstItem, int idItem)
+    {
+        for(int i = 0; i < lstItem.size(); i++)
+        {
+            if(lstItem.get(i).getId() == idItem) return i;
+        }
+        return 0;
+    }
+
+    private int getIndexCategory(ArrayList<Category> lstItem, int idItem)
+    {
+        for(int i = 0; i < lstItem.size(); i++)
+        {
+            if(lstItem.get(i).getId() == idItem) return i;
+        }
+        return 0;
+    }
+
+
 }

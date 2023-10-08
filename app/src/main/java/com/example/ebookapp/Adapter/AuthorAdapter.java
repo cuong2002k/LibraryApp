@@ -45,7 +45,7 @@ public class AuthorAdapter extends BaseAdapter {
         } else viewProduct = view;
         Author author = (Author) getItem(i);
         ((TextView) viewProduct.findViewById(R.id.txtID)).setText(author.getId() + "");
-        ((TextView) viewProduct.findViewById(R.id.txtName)).setText(author.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.txtName)).setText("Name: "+author.getName() + "");
         return viewProduct;
     }
 
