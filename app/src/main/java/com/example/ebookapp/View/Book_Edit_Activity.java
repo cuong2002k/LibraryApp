@@ -73,16 +73,15 @@ public class Book_Edit_Activity extends AppCompatActivity {
 
         if(isUpdate)
         {
-            Bundle bundle = intent.getBundleExtra("Book");
-            bookData = (Book) bundle.getSerializable("Book");
-
+            int idBook = intent.getIntExtra("idBook", 0);
+            bookData = handler.getBookWithID(idBook);
             txtTile.setText(bookData.getTitle().toString());
             txtYear.setText(bookData.getYear().toString());
-            Bitmap bitmap = handler.getImage(intent.getByteArrayExtra("Image"));
 
             author.setSelection(getIndexAuthor(lstAuthor, bookData.getAuthor()));
             category.setSelection(getIndexCategory(lstCategory, bookData.getCategory()));
-            show_Image.setImageBitmap(bitmap);
+
+            show_Image.setImageBitmap(bookData.getImage());
             delete.setVisibility(View.VISIBLE);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override

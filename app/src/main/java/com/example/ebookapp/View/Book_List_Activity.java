@@ -59,18 +59,9 @@ public class Book_List_Activity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
                 intent.setClass(Book_List_Activity.this, Book_Edit_Activity.class);
-                Bundle bundle = new Bundle();
-                Book book = arr.get(i);
 
-                byte[] image = db.getBitmapAsByteArray(book.getImage());
+                intent.putExtra("idBook", arr.get(i).getBookId());
 
-                intent.putExtra("Image", image );
-
-
-
-                book.setImage(null);
-                bundle.putSerializable("Book", book);
-                intent.putExtra("Book", bundle);
                 intent.putExtra("isUpdate", true);
                 startActivityForResult(intent, REQ_INSERT);
 

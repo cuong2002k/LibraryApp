@@ -127,4 +127,29 @@ public class BookHandler{
         return outputStream.toByteArray();
     }
 
+    public Book getBookWithID(int id)
+    {
+        try{
+
+            String sql = "Select * from " + DatabaseHandler.BOOK_TB_NAME + " where " + DatabaseHandler.BOOK_ID + "=?";
+            SQLiteDatabase db = hd.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sql, new String[]{id+""});
+            cursor.moveToFirst();
+            int bookId = cursor.getInt(0);
+            String title = cursor.getString(1);
+            int author = cursor.getInt(2);
+            String year = cursor.getString(3);
+            int category = cursor.getInt(4);
+            byte[] image = cursor.getBlob(5);
+            Book book = new Book(bookId, title, author,year,category, getImage(image));
+            cursor.close();
+            db.close();
+            return book;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }
