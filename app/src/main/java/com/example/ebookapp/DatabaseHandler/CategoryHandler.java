@@ -96,4 +96,24 @@ public class CategoryHandler {
             return false;
         }
     }
+
+    public Category getCategoryWithID(int id)
+    {
+        try
+        {
+            ArrayList<Category> lstCategory = new ArrayList<>();
+            String sql = "Select * from " + DatabaseHandler.CATEGORY_TB_NAME + " where " + DatabaseHandler.CATEGORY_ID + " =?";
+            SQLiteDatabase db = dbhandler.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sql, new String[]{id+""});
+            cursor.moveToFirst();
+            int ids = cursor.getInt(0);
+            String name = cursor.getString(1);
+            Category category = new Category(ids, name);
+            return category;
+        }
+        catch (Exception exception)
+        {
+            return null;
+        }
+    }
 }

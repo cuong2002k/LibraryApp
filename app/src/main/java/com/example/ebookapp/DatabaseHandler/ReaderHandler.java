@@ -102,4 +102,29 @@ public class ReaderHandler {
         }
     }
 
+    public Reader getReaderWithID(int id)
+    {
+        try {
+            String sql = "Select * from " + DatabaseHandler.READER_TB_NAME + "" +
+                    " where " + DatabaseHandler.READER_ID + " =?";
+            SQLiteDatabase db = hd.getReadableDatabase();
+            Cursor data = db.rawQuery(sql, new String[]{id+""});
+            data.moveToFirst();
+
+                int ids = data.getInt(0);
+                String name = data.getString(1);
+                String address = data.getString(2);
+                String phone = data.getString(3);
+                String city = data.getString(4);
+                Reader reader = new Reader(id,name,address,phone,city);
+
+                db.close();
+            return  reader;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
 }

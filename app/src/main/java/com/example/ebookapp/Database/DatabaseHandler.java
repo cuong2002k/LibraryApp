@@ -145,9 +145,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String sql = "create table if not exists "+ BRW_TB_NAME +"(" +
                 "" + BRW_ID + " integer primary key autoincrement not null," +
                 "" + BRW_READER_ID + " integer," +
-                "" + BRW_BORROW_DAY + " date," +
-                "" + BRW_RETURN_DAY + " date," +
-                "" + BRW_RETURN_TIME + " date);";
+                "" + BRW_BORROW_DAY + " text," +
+                "" + BRW_RETURN_DAY + " text," +
+                "" + BRW_RETURN_TIME + " text);";
         return sql;
     }
     private String CreateBorrowingDetailsTB()

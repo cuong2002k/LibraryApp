@@ -6,21 +6,21 @@ import java.util.Date;
 public class Borrowing implements Serializable {
     int borrowingId;
     int readerId;
-    Date borrowDay;
-    Date returnDay;
-    Date returnTime;
+    String borrowDay;
+    String returnDay;
+    String returnTime;
 
     public Borrowing() {
     }
 
-    public Borrowing(int readerId, Date borrowDay, Date returnDay, Date returnTime) {
+    public Borrowing(int readerId, String borrowDay, String returnDay, String returnTime) {
         this.readerId = readerId;
         this.borrowDay = borrowDay;
         this.returnDay = returnDay;
         this.returnTime = returnTime;
     }
 
-    public Borrowing(int borrowingId, int readerId, Date borrowDay, Date returnDay, Date returnTime) {
+    public Borrowing(int borrowingId, int readerId, String borrowDay, String returnDay, String returnTime) {
         this.borrowingId = borrowingId;
         this.readerId = readerId;
         this.borrowDay = borrowDay;
@@ -44,27 +44,27 @@ public class Borrowing implements Serializable {
         this.readerId = readerId;
     }
 
-    public Date getBorrowDay() {
+    public String getBorrowDay() {
         return borrowDay;
     }
 
-    public void setBorrowDay(Date borrowDay) {
+    public void setBorrowDay(String borrowDay) {
         this.borrowDay = borrowDay;
     }
 
-    public Date getReturnDay() {
+    public String getReturnDay() {
         return returnDay;
     }
 
-    public void setReturnDay(Date returnDay) {
+    public void setReturnDay(String returnDay) {
         this.returnDay = returnDay;
     }
 
-    public Date getReturnTime() {
+    public String getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(Date returnTime) {
+    public void setReturnTime(String returnTime) {
         this.returnTime = returnTime;
     }
 
