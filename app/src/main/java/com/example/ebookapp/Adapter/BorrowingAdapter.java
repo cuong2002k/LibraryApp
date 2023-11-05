@@ -58,12 +58,12 @@ public class BorrowingAdapter extends BaseAdapter {
 
         Reader reader = readerHandler.getReaderWithID(borrowing.getReaderId());
 
-        ((TextView) viewProduct.findViewById(R.id.nameReader)).setText("Reader : " + reader.getName() + "");
-        ((TextView) viewProduct.findViewById(R.id.phoneReader)).setText("Phone : " + reader.getPhone() + "");
+        ((TextView) viewProduct.findViewById(R.id.nameReader)).setText("Tên đọc giả : " + reader.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.phoneReader)).setText("Điện thoại : " + reader.getPhone() + "");
 
-        ((TextView) viewProduct.findViewById(R.id.borrowDay)).setText("BorrowDay : " + borrowing.getBorrowDay() + "");
-        ((TextView) viewProduct.findViewById(R.id.returnDay)).setText("ReturnDay : " + borrowing.getReturnDay() + "");
-        ((TextView) viewProduct.findViewById(R.id.returnTime)).setText("ReturnTime : " + borrowing.getReturnTime() + "");
+        ((TextView) viewProduct.findViewById(R.id.borrowDay)).setText("Ngày mượn : " + borrowing.getBorrowDay() + "");
+        ((TextView) viewProduct.findViewById(R.id.returnDay)).setText("Ngày trả : " + borrowing.getReturnDay() + "");
+        ((TextView) viewProduct.findViewById(R.id.returnTime)).setText("Thời điểm trả : " + borrowing.getReturnTime() + "");
 
         return viewProduct;
     }

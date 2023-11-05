@@ -2,6 +2,7 @@ package com.example.ebookapp.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.ebookapp.DatabaseHandler.AuthorHandler;
+import com.example.ebookapp.AlertDialogUtil;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.CategoryHandler;
-import com.example.ebookapp.Model.Author;
+import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Category;
+import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
 
 public class Category_Edit_Activity extends AppCompatActivity {
@@ -23,6 +26,9 @@ public class Category_Edit_Activity extends AppCompatActivity {
     CategoryHandler handler;
     ImageView image_back;
     Category category;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,33 +51,25 @@ public class Category_Edit_Activity extends AppCompatActivity {
             deleteCategory.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    handler.deleteData(category.getId());
-                    setResult(Category_List_Activity.RES_INSERT_CATEGORY);
-                    finish();
+                    HandleDialog(DefineAction.DELETE);
                 }
             });
         }
         else {
             deleteCategory.setVisibility(View.GONE);
         }
-        saveCategory = findViewById(R.id.btn_Save_Category);
-        saveCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( isUpdate == true)
-                {
-                    String name = txtCategory.getText().toString();
-                    handler.updateData(new Category(category.getId(), name));
-                }
-                else {
-                    String name = txtCategory.getText().toString();
-                    handler.insertData(new Category(name));
-                }
-                setResult(Category_List_Activity.RES_INSERT_CATEGORY);
-                finish();
-            }
-        });
 
+
+        HandleSaveCategory(isUpdate);
+    }
+
+    private Boolean checkCategoryName()
+    {
+        if(txtCategory.length() < 3)
+        {
+            return false;
+        }
+        return true;
     }
 
     private void doBackListCategory()
@@ -82,9 +80,67 @@ public class Category_Edit_Activity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
             }
-            //......
         });
     }
+
+    private void HandleSaveCategory(Boolean isUpdate)
+    {
+        saveCategory = findViewById(R.id.btn_Save_Category);
+        saveCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkCategoryName())
+                {
+                    if(isUpdate)
+                    {
+                        HandleDialog(DefineAction.UPDATE);
+                    }
+                    else {
+                        HandleDialog(DefineAction.CREATE);
+                    }
+                }
+                else {
+                    OKAlert.ShowOkeAlert(Category_Edit_Activity.this);
+                }
+
+            }
+        });
+    }
+
+    private void HandleDialog(String Action)
+    {
+        AlertDialogUtil.showYesNoAlertDialog(Category_Edit_Activity.this, "Xác nhận", "Bạn có muốn tiếp tục không?",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String name = txtCategory.getText().toString();
+                        if ( Action == DefineAction.UPDATE)
+                        {
+                            handler.updateData(new Category(category.getId(), name));
+                        }
+                        else if(Action == DefineAction.CREATE){
+                            handler.insertData(new Category(name));
+                        }
+                        else
+                        {
+                            handler.deleteData(category.getId());
+                        }
+                        setResult(CODE.RES);
+                        finish();
+                        dialog.dismiss();
+
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng cửa sổ thông báo
+                    }
+                });
+    }
+
+
 
 
 }

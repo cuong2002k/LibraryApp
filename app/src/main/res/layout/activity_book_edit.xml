@@ -32,14 +32,14 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Title"
+            android:textSize="18dp"
+            android:text="Tiêu đề"
             android:textAlignment="center"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:id="@+id/titleBook"
             android:layout_marginLeft="20dp"
             />
@@ -51,10 +51,10 @@
         android:layout_margin="10dp"
         >
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Year"
+            android:textSize="18dp"
+            android:text="Năm xuất bản"
             android:textAlignment="center"
             />
         <EditText
@@ -75,8 +75,8 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Author"
+            android:textSize="18dp"
+            android:text="Tác giả"
             android:textAlignment="center"
             />
         <Spinner
@@ -99,8 +99,8 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Category"
+            android:textSize="18dp"
+            android:text="Thể loại"
             android:textAlignment="center"
             />
         <Spinner
@@ -125,8 +125,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
 
-            android:text="Chose Image"
+            android:text="Chọn hình ảnh"
             android:textColor="#fff"
+            android:textAllCaps="false"
             android:id="@+id/btn_image"/>
         <ImageView
             android:layout_width="180dp"
@@ -147,6 +148,7 @@
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
             android:text="Save"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Save"/>
         <Button
@@ -154,7 +156,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
-            android:text="Delete"
+            android:text="Xóa"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Delete"
             />

@@ -5,6 +5,7 @@ import static android.view.View.GONE;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -23,10 +24,13 @@ import android.widget.Toast;
 
 import com.example.ebookapp.Adapter.AuthorAdapter;
 import com.example.ebookapp.Adapter.CategoryAdapter;
+import com.example.ebookapp.AlertDialogUtil;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.CategoryHandler;
 import com.example.ebookapp.DatabaseHandler.ReaderHandler;
+import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Category;
@@ -77,18 +81,16 @@ public class Book_Edit_Activity extends AppCompatActivity {
             bookData = handler.getBookWithID(idBook);
             txtTile.setText(bookData.getTitle().toString());
             txtYear.setText(bookData.getYear().toString());
-
             author.setSelection(getIndexAuthor(lstAuthor, bookData.getAuthor()));
             category.setSelection(getIndexCategory(lstCategory, bookData.getCategory()));
-
             show_Image.setImageBitmap(bookData.getImage());
+
+
             delete.setVisibility(View.VISIBLE);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    handler.deleteData(bookData.getBookId());
-                    setResult(Book_List_Activity.RES_INSERT);
-                    finish();
+                    HandleDialog(DefineAction.DELETE);
                 }
             });
         }
@@ -103,33 +105,7 @@ public class Book_Edit_Activity extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(isUpdate)
-                {
-                    String title = txtTile.getText().toString();
-                    String year = txtYear.getText().toString();
-                    Bitmap image = bookData.getImage();
-                    if(bitmapimg != null)
-                    {
-                        image = bitmapimg;
-                    }
-                    Book book = new Book(bookData.getBookId(),title,selectAuthor.getId(),year,selectCategory.getId(),image);
-                    handler.updateData(book);
-
-                }
-                else {
-                    String title = txtTile.getText().toString();
-                    String year = txtYear.getText().toString();
-                    Bitmap image = bitmapimg;
-                    Book book = new Book(title,selectAuthor.getId(),year,selectCategory.getId(),image);
-                    handler.insertData(book);
-                }
-                setResult(Book_List_Activity.RES_INSERT);
-                finish();
-            }
-        });
+        handleSaveButton(isUpdate);
 
         choseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +186,91 @@ public class Book_Edit_Activity extends AppCompatActivity {
         intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, GALLERY_REQ_CODE);
     }
+
+    private int getIndexAuthor(ArrayList<Author> lstItem, int idItem)
+    {
+        for(int i = 0; i < lstItem.size(); i++)
+        {
+            if(lstItem.get(i).getId() == idItem) return i;
+        }
+        return 0;
+    }
+
+    private int getIndexCategory(ArrayList<Category> lstItem, int idItem)
+    {
+        for(int i = 0; i < lstItem.size(); i++)
+        {
+            if(lstItem.get(i).getId() == idItem) return i;
+        }
+        return 0;
+    }
+
+
+    private Boolean checkAll()
+    {
+        Boolean check = txtTile.length() > 3 && txtYear.length() > 3;
+        return true;
+    }
+
+    private void handleSaveButton(Boolean isUpdate)
+    {
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isUpdate)
+                {
+                    HandleDialog(DefineAction.UPDATE);
+                }
+                else {
+                    HandleDialog(DefineAction.CREATE);
+                }
+            }
+        });
+    }
+
+    private void HandleDialog(String Action)
+    {
+        AlertDialogUtil.showYesNoAlertDialog(Book_Edit_Activity.this, "Xác nhận", "Bạn có muốn tiếp tục không?",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String title = txtTile.getText().toString();
+                        String year = txtYear.getText().toString();
+                        Bitmap image;
+
+                        if ( Action == DefineAction.UPDATE)
+                        {
+                            image = bookData.getImage();
+                            if(bitmapimg != null)
+                            {
+                                image = bitmapimg;
+                            }
+                            Book book = new Book(bookData.getBookId(),title,selectAuthor.getId(),year,selectCategory.getId(),image);
+                            handler.updateData(book);
+                        }
+                        else if(Action == DefineAction.CREATE){
+                            image = bitmapimg;
+                            Book book = new Book(title,selectAuthor.getId(),year,selectCategory.getId(),image);
+                            handler.insertData(book);
+                        }
+                        else
+                        {
+                            handler.deleteData(bookData.getBookId());
+                        }
+                        setResult(CODE.RES);
+                        finish();
+                        dialog.dismiss();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng cửa sổ thông báo
+                    }
+                });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,23 +293,10 @@ public class Book_Edit_Activity extends AppCompatActivity {
         }
     }
 
-    private int getIndexAuthor(ArrayList<Author> lstItem, int idItem)
-    {
-        for(int i = 0; i < lstItem.size(); i++)
-        {
-            if(lstItem.get(i).getId() == idItem) return i;
-        }
-        return 0;
-    }
 
-    private int getIndexCategory(ArrayList<Category> lstItem, int idItem)
-    {
-        for(int i = 0; i < lstItem.size(); i++)
-        {
-            if(lstItem.get(i).getId() == idItem) return i;
-        }
-        return 0;
-    }
+
+
+
 
 
 }

@@ -73,7 +73,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Book"
+                        android:text="Sách"
                         android:textSize="20dp"
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reader"
+                    android:text="Độc Giả"
                     android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Author"
+                    android:text="Tác Giả"
                     android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
@@ -186,7 +186,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category"
+                    android:text="Thể Loại"
                     android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
@@ -223,7 +223,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Borrowing"
+                    android:text="Mượn Trả"
                     android:textSize="20dp"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"

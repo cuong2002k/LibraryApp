@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Create"
+        android:title="Tạo mới"
         android:id="@+id/createitem"
         >
     </item>
 
     <item
-        android:title="Show All"
+        android:title="Hiển Thị Tất Cả"
         android:id="@+id/showallitem"/>
     <item
-        android:title="Back"
+        android:title="Trở Lại"
         android:id="@+id/backitem"/>
 
 </menu>

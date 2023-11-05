@@ -29,10 +29,10 @@
         android:layout_margin="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Reader"
+            android:textSize="18dp"
+            android:text="Đọc giả"
             android:textAlignment="center"
             />
         <Spinner
@@ -51,15 +51,16 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Book"
-
+            android:text="Sách"
+            android:textAlignment="center"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_choose"
             android:background="#6499E9"
-            android:text="Choose"
+            android:text="Chọn hình ảnh"
+            android:textAllCaps="false"
             android:gravity="center"
             android:layout_weight="1"
             android:textColor="@color/white"
@@ -68,7 +69,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LIST BOOK"
+        android:text="Danh Sách Mượn"
         android:textAlignment="center"
         android:textSize="20dp"
         />
@@ -87,10 +88,11 @@
         android:layout_margin="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Borrow Day"
+            android:textSize="18dp"
+            android:text="Ngày mượn"
+            android:paddingRight="10dp"
             android:textAlignment="center"
             />
         <EditText
@@ -101,7 +103,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Enter date"
+            android:hint="Chọn Ngày"
             />
     </LinearLayout>
 
@@ -112,11 +114,12 @@
         android:layout_margin="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Return Day"
+            android:textSize="18dp"
+            android:text="Ngày trả"
             android:textAlignment="center"
+            android:paddingRight="10dp"
             />
         <EditText
             android:layout_width="match_parent"
@@ -126,7 +129,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Enter date"
+            android:hint="Chọn ngày"
             />
     </LinearLayout>
 
@@ -137,10 +140,11 @@
         android:layout_margin="10dp"
         >
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Return Time"
+            android:text="Thời điểm trả"
+            android:paddingRight="10dp"
             android:textAlignment="center"
             android:id="@+id/txtret"
 
@@ -153,7 +157,7 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Enter date"
+            android:hint="Chọn ngày"
             />
     </LinearLayout>
 
@@ -168,7 +172,8 @@
             android:layout_height="wrap_content"
             android:background="#6499E9"
             android:layout_marginLeft="25dp"
-            android:text="Save"
+            android:text="Lưu"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Save"/>
         <Button
@@ -176,7 +181,8 @@
             android:layout_height="wrap_content"
             android:background="#6499E9"
             android:layout_marginLeft="25dp"
-            android:text="Delete"
+            android:text="Xóa"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Delete"
             />

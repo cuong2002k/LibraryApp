@@ -50,20 +50,20 @@
         <EditText
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:text="Username"
+            android:hint="Tên tài khoản"
             android:background="@drawable/text_bg"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
-            android:textColor="#fff"
+            android:textColorHint="#fff"
             android:paddingLeft="30dp"/>
         <EditText
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:text="Password"
+            android:hint="Mật khẩu"
             android:background="@drawable/text_bg"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
-            android:textColor="#fff"
+            android:textColorHint="#fff"
             android:paddingLeft="30dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remember me"
+                android:text="Nhớ tài khoản"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"/>
@@ -93,7 +93,8 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_bg"
-            android:text="LOGIN"
+            android:text="Đăng Nhập"
+            android:textAllCaps="false"
             android:textStyle="bold"
             android:textColor="#2196f3"
             android:textSize="20dp"

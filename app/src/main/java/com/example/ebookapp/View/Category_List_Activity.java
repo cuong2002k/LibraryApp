@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import com.example.ebookapp.Adapter.CategoryAdapter;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.CategoryHandler;
 import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.R;
@@ -23,8 +24,6 @@ import java.util.ArrayList;
 
 public class Category_List_Activity extends AppCompatActivity {
 
-    public static final int REQ_INSERT_CATEGORY = 1003;
-    public static final int RES_INSERT_CATEGORY = 1004;
 
     SearchView searchView;
     ListView listViewItem;
@@ -64,7 +63,7 @@ public class Category_List_Activity extends AppCompatActivity {
                 bundle.putSerializable("Category", (Category)categoryAdapter.getItem(i));
                 intent.putExtra("Category", bundle);
                 intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT_CATEGORY);
+                startActivityForResult(intent, CODE.REQ);
             }
         });
     }
@@ -112,7 +111,7 @@ public class Category_List_Activity extends AppCompatActivity {
                     case R.id.createitem:
                         Intent intent = new Intent();
                         intent.setClass(Category_List_Activity.this, Category_Edit_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT_CATEGORY);
+                        startActivityForResult(intent, CODE.REQ);
                         return true;
                     case R.id.showallitem:
                         LoadListView();
@@ -141,8 +140,8 @@ public class Category_List_Activity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode)
         {
-            case REQ_INSERT_CATEGORY:
-                if(resultCode == RES_INSERT_CATEGORY)
+            case CODE.REQ:
+                if(resultCode == CODE.RES)
                 {
                     //Toast.makeText(Category_List_Activity.this, "oke", Toast.LENGTH_LONG).show();
                     LoadListView();

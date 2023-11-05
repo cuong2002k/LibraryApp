@@ -23,6 +23,7 @@
                 android:id="@+id/search_item"
                 android:background="#fff"
                 android:layout_weight="1"
+                android:hint="Tìm kiếm"
 
                 />
             <ImageView

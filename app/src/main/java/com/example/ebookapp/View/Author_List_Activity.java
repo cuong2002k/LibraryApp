@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import com.example.ebookapp.Adapter.AuthorAdapter;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
 import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.R;
@@ -23,9 +24,6 @@ import com.example.ebookapp.R;
 import java.util.ArrayList;
 
 public class Author_List_Activity extends AppCompatActivity {
-
-    public static final int REQ_INSERT_AUTHOR = 1001;
-    public static final int RES_INSERT_AUTHOR = 1002;
 
     SearchView searchView;
     ListView listViewItem;
@@ -55,7 +53,7 @@ public class Author_List_Activity extends AppCompatActivity {
                 author.putSerializable("Author", (Author)authorAdapter.getItem(i));
                 intent.putExtra("Author", author);
                 intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT_AUTHOR);
+                startActivityForResult(intent, CODE.REQ);
             }
         });
 
@@ -118,7 +116,7 @@ public class Author_List_Activity extends AppCompatActivity {
                     case R.id.createitem:
                         Intent intent = new Intent();
                         intent.setClass(Author_List_Activity.this, Author_Edit_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT_AUTHOR);
+                        startActivityForResult(intent, CODE.REQ);
                         return true;
                     case R.id.showallitem:
                         LoadListView();
@@ -141,8 +139,8 @@ public class Author_List_Activity extends AppCompatActivity {
 
         switch (requestCode)
         {
-            case REQ_INSERT_AUTHOR:
-                if(resultCode == RES_INSERT_AUTHOR)
+            case CODE.REQ:
+                if(resultCode == CODE.RES)
                 {
                     LoadListView();
                 }

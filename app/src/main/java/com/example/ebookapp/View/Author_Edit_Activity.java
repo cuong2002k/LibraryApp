@@ -2,6 +2,7 @@ package com.example.ebookapp.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.ebookapp.AlertDialogUtil;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
+import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Author;
+import com.example.ebookapp.Model.Category;
+import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
 
 public class Author_Edit_Activity extends AppCompatActivity {
@@ -20,6 +26,8 @@ public class Author_Edit_Activity extends AppCompatActivity {
     EditText txtAuthor;
     AuthorHandler handler;
     ImageView image_back;
+
+    Author author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +47,13 @@ public class Author_Edit_Activity extends AppCompatActivity {
         if(isUpdate)
         {
             Bundle bundle = intent.getBundleExtra("Author");
-            Author author = (Author) bundle.getSerializable("Author");
+            author = (Author) bundle.getSerializable("Author");
             txtAuthor.setText(author.getName());
             deleteAuthor.setVisibility(View.VISIBLE);
             deleteAuthor.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    handler.deleteData(author.getId());
-                    setResult(Author_List_Activity.RES_INSERT_AUTHOR);
-                    finish();
+                    HandleDialog(DefineAction.DELETE);
                 }
             });
         }
@@ -56,31 +62,9 @@ public class Author_Edit_Activity extends AppCompatActivity {
             deleteAuthor.setVisibility(View.GONE);
         }
 
+        HandleSaveAuthor(isUpdate);
 
 
-        saveAuthor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(!isUpdate)
-                {
-                    String name = txtAuthor.getText().toString();
-                    Author author = new Author(name);
-                    handler.insertData(author);
-                    setResult(Author_List_Activity.RES_INSERT_AUTHOR);
-                    finish();
-                }
-                else {
-                    Bundle bundle = intent.getBundleExtra("Author");
-                    Author author = (Author) bundle.getSerializable("Author");
-                    author.setName(txtAuthor.getText().toString());
-                    handler.updateData(author);
-                    setResult(Author_List_Activity.RES_INSERT_AUTHOR);
-                    finish();
-                }
-
-            }
-        });
 
         image_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +75,72 @@ public class Author_Edit_Activity extends AppCompatActivity {
         });
 
     }
+
+    private boolean checkName()
+    {
+        if(txtAuthor.length() < 3) return  false;
+        return true;
+    }
+
+    private void HandleSaveAuthor(Boolean isUpdate)
+    {
+        saveAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkName())
+                {
+                    if(isUpdate)
+                    {
+                        HandleDialog(DefineAction.UPDATE);
+                    }
+                    else {
+                        HandleDialog(DefineAction.CREATE);
+                    }
+                }
+                else{
+                    OKAlert.ShowOkeAlert(Author_Edit_Activity.this);
+                }
+
+            }
+        });
+    }
+
+    private void HandleDialog(String Action)
+    {
+        AlertDialogUtil.showYesNoAlertDialog(Author_Edit_Activity.this, "Xác nhận", "Bạn có muốn tiếp tục không?",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        String name = txtAuthor.getText().toString();
+                        if ( Action == DefineAction.UPDATE)
+                        {
+                            author.setName(txtAuthor.getText().toString());
+                            handler.updateData(author);
+                        }
+                        else if(Action == DefineAction.CREATE){
+
+                            Author author = new Author(name);
+                            handler.insertData(author);
+                        }
+                        else
+                        {
+                            handler.deleteData(author.getId());
+                        }
+                        setResult(CODE.RES);
+                        finish();
+                        dialog.dismiss();
+
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng cửa sổ thông báo
+                    }
+                });
+    }
+
 
 
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.ebookapp.Adapter.BookAdapter;
 import com.example.ebookapp.Adapter.ReaderAdapter;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.ReaderHandler;
 import com.example.ebookapp.Model.Book;
@@ -27,8 +28,6 @@ import java.util.ArrayList;
 
 public class Book_List_Activity extends AppCompatActivity {
 
-    public static final int REQ_INSERT = 1005;
-    public static final int RES_INSERT = 1005;
     SearchView searchView;
     ListView listViewItem;
     BookAdapter Adapter;
@@ -63,7 +62,7 @@ public class Book_List_Activity extends AppCompatActivity {
                 intent.putExtra("idBook", arr.get(i).getBookId());
 
                 intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT);
+                startActivityForResult(intent, CODE.REQ);
 
             }
         });
@@ -101,7 +100,7 @@ public class Book_List_Activity extends AppCompatActivity {
                     case R.id.createitem:
                         Intent intent = new Intent();
                         intent.setClass(Book_List_Activity.this, Book_Edit_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT);
+                        startActivityForResult(intent, CODE.REQ);
                         return true;
                     case R.id.showallitem:
                         LoadListView();
@@ -143,8 +142,8 @@ public class Book_List_Activity extends AppCompatActivity {
 
         switch (requestCode)
         {
-            case REQ_INSERT:
-                if(resultCode == RES_INSERT)
+            case CODE.REQ:
+                if(resultCode == CODE.RES)
                 {
                     LoadListView();
                 }

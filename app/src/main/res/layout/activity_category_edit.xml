@@ -32,13 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="Name"/>
+            android:text="Tên Thể Loại"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:textSize="20dp"
+            android:hint="Nhập tên thể loại"
             android:id="@+id/txtNameCategory"
             />
 
@@ -54,7 +55,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
-            android:text="Save"
+            android:text="Lưu"
             android:textColor="#fff"
             android:id="@+id/btn_Save_Category"/>
         <Button
@@ -62,7 +63,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
-            android:text="Delete"
+            android:text="Xóa"
             android:textColor="#fff"
             android:id="@+id/btn_Delete_Category"
             />

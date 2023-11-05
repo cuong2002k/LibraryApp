@@ -56,11 +56,11 @@ public class BookAdapter extends BaseAdapter {
         } else viewProduct = view;
         Book book = (Book) getItem(i);
         ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(book.getImage());
-        ((TextView) viewProduct.findViewById(R.id.nameBook)).setText("Title: " + book.getTitle() + "");
+        ((TextView) viewProduct.findViewById(R.id.nameBook)).setText("Tiêu đề: " + book.getTitle() + "");
         Author author = authorHandler.getAuthorWithID(book.getAuthor());
-        ((TextView) viewProduct.findViewById(R.id.authorBook)).setText("Author: " + author.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.authorBook)).setText("Tác giả: " + author.getName() + "");
         Category category = categoryHandler.getCategoryWithID(book.getCategory());
-        ((TextView) viewProduct.findViewById(R.id.CategoryBook)).setText("Author: " + category.getName() + "");
+        ((TextView) viewProduct.findViewById(R.id.CategoryBook)).setText("Thể loại: " + category.getName() + "");
         return viewProduct;
     }
 
