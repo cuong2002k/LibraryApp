@@ -16,6 +16,7 @@ import android.widget.PopupMenu;
 
 import com.example.ebookapp.Adapter.BookAdapter;
 import com.example.ebookapp.Adapter.BorrowingAdapter;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.BorrowingHandler;
 import com.example.ebookapp.Model.Book;
@@ -26,8 +27,6 @@ import java.util.ArrayList;
 
 public class Borrowing_List_Activity extends AppCompatActivity {
 
-    public static final int REQ_INSERT = 1005;
-    public static final int RES_INSERT = 1005;
     SearchView searchView;
     ListView listViewItem;
     BorrowingAdapter Adapter;
@@ -65,7 +64,7 @@ public class Borrowing_List_Activity extends AppCompatActivity {
                 bundle.putSerializable("Borrow", arr.get(i));
                 intent.putExtra("Borrow", bundle);
                 intent.putExtra("isUpdate", true);
-                startActivityForResult(intent, REQ_INSERT);
+                startActivityForResult(intent, CODE.REQ);
 
             }
         });
@@ -103,7 +102,7 @@ public class Borrowing_List_Activity extends AppCompatActivity {
                     case R.id.createitem:
                         Intent intent = new Intent();
                         intent.setClass(Borrowing_List_Activity.this, Borrowing_Edit_Activity.class);
-                        startActivityForResult(intent, REQ_INSERT);
+                        startActivityForResult(intent, CODE.REQ);
                         return true;
                     case R.id.showallitem:
                         LoadListView();
@@ -145,8 +144,8 @@ public class Borrowing_List_Activity extends AppCompatActivity {
 
         switch (requestCode)
         {
-            case REQ_INSERT:
-                if(resultCode == RES_INSERT)
+            case CODE.REQ:
+                if(resultCode == CODE.RES)
                 {
                     LoadListView();
                 }

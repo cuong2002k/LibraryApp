@@ -40,6 +40,7 @@ public class AuthorHandler {
                 data.moveToNext();
             }
             data.close();
+            db.close();
             return lstAuthor;
     }
 
@@ -58,6 +59,7 @@ public class AuthorHandler {
                 idAuthor , name
         );
         data.close();
+        db.close();
         return author;
 
     }
@@ -111,9 +113,9 @@ public class AuthorHandler {
         {
 
             db = database.getWritableDatabase();
-            db.delete(database.AUTHOR_TB_NAME,
-                    database.AUTHOR_ID + " = ?",
-                    new String[]{id+""});
+            String sql = "DELETE FROM " + database.AUTHOR_TB_NAME + " WHERE " + database.AUTHOR_ID + " = ?";
+            db.execSQL(sql,new String[]{id+""});
+            db.close();
             return true;
         }
         catch (Exception ex)

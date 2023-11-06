@@ -18,4 +18,17 @@ public class OKAlert {
                     }
                 });
     }
+
+    public static void ShowOkeAlert(Context context, String message)
+    {
+        AlertDialogUtil.showOkAlertDialog(context, "Thông báo",
+                message,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Xử lý khi người dùng chọn OK
+                        dialog.dismiss(); // Đóng cửa sổ thông báo
+                    }
+                });
+    }
 }

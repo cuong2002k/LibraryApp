@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,11 +20,15 @@ import android.widget.TextView;
 
 import com.example.ebookapp.Adapter.BookAdapter;
 import com.example.ebookapp.Adapter.ReaderAdapter;
+import com.example.ebookapp.AlertDialogUtil;
+import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.BorrowingHandler;
 import com.example.ebookapp.DatabaseHandler.ReaderHandler;
+import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Borrowing;
+import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
 import com.example.ebookapp.R;
 
@@ -166,7 +171,6 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
                                                   int monthOfYear, int dayOfMonth) {
                                 // on below line we are setting date to our edit text.
                                 rtDay.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
                             }
                         },
                         year, month, day);
@@ -326,33 +330,56 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if(isUpdate)
                 {
-                    int readerId = reader.getReaderId();
-                    //brDay, returnDay, brTime;
-                    String borrowDay = brDay.getText().toString();
-                    String returnDay = rtDay.getText().toString();
-                    String returnTime = brTime.getText().toString();
-                    Borrowing borrowing = new Borrowing(borrowingData.getBorrowingId(),readerId, borrowDay, returnDay, returnTime);
-                    borrowingHandler.UpdateData(borrowing, lstBook);
+                    HandleDialog(DefineAction.UPDATE);
                 }
                 else {
-                    int readerId = reader.getReaderId();
-                    //brDay, returnDay, brTime;
-                    String borrowDay = brDay.getText().toString();
-                    String returnDay = rtDay.getText().toString();
-                    String returnTime = null;
-                    Borrowing borrowing = new Borrowing(readerId, borrowDay, returnDay, returnTime);
-                    borrowingHandler.insertData(borrowing, lstBook);
+                    HandleDialog(DefineAction.CREATE);
                 }
-
-
-                setResult(Borrowing_List_Activity.RES_INSERT);
-                finish();
             }
         });
+    }
+
+    private void HandleDialog(String Action)
+    {
+        AlertDialogUtil.showYesNoAlertDialog(Borrowing_Edit_Activity.this, "Xác nhận", "Bạn có muốn tiếp tục không?",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        int readerId = reader.getReaderId();
+                        //brDay, returnDay, brTime;
+                        String borrowDay = brDay.getText().toString();
+                        String returnDay = rtDay.getText().toString();
+                        String returnTime = null;
+
+                        if ( Action == DefineAction.UPDATE)
+                        {
+                            returnTime = brTime.getText().toString();
+                            Borrowing borrowing = new Borrowing(borrowingData.getBorrowingId(),readerId, borrowDay, returnDay, returnTime);
+                            borrowingHandler.UpdateData(borrowing, lstBook);
+                        }
+                        else if(Action == DefineAction.CREATE){
+                            Borrowing borrowing = new Borrowing(readerId, borrowDay, returnDay, returnTime);
+                            borrowingHandler.insertData(borrowing, lstBook);
+                        }
+                        else
+                        {
+                            borrowingHandler.DeleteData(borrowingData.getBorrowingId());
+                        }
+                        setResult(CODE.RES);
+                        finish();
+                        dialog.dismiss();
+
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Đóng cửa sổ thông báo
+                    }
+                });
     }
 
     private  void HandlerDeleteButton(Boolean isUpdate)
@@ -363,9 +390,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                borrowingHandler.DeleteData(borrowingData.getBorrowingId());
-                setResult(Borrowing_List_Activity.RES_INSERT);
-                finish();
+                HandleDialog(DefineAction.DELETE);
             }
         });
     }

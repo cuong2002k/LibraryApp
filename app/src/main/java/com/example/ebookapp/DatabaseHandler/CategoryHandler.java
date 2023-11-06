@@ -36,6 +36,8 @@ public class CategoryHandler {
                 lstCategory.add(category);
                 cursor.moveToNext();
             }
+            cursor.close();
+            db.close();
             return lstCategory;
         }
         catch (Exception exception)
@@ -72,6 +74,7 @@ public class CategoryHandler {
                     value,
                     DatabaseHandler.CATEGORY_ID + "=?",
                     new String[] { category.getId() + "" });
+            db.close();
             return  true;
         }
         catch (Exception ex)
@@ -84,11 +87,11 @@ public class CategoryHandler {
     {
         try
         {
-
             SQLiteDatabase db = dbhandler.getWritableDatabase();
-            db.delete(DatabaseHandler.CATEGORY_TB_NAME,
-                      DatabaseHandler.CATEGORY_ID + "=?",
-                    new String[]{id+""});
+            db = dbhandler.getWritableDatabase();
+            String sql = "DELETE FROM " + dbhandler.CATEGORY_TB_NAME + " WHERE " + dbhandler.CATEGORY_ID + " = ?";
+            db.execSQL(sql,new String[]{id+""});
+            db.close();
             return  true;
         }
         catch (Exception ex)
@@ -109,6 +112,7 @@ public class CategoryHandler {
             int ids = cursor.getInt(0);
             String name = cursor.getString(1);
             Category category = new Category(ids, name);
+            db.close();
             return category;
         }
         catch (Exception exception)

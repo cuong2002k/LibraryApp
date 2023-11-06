@@ -1,6 +1,7 @@
 package com.example.ebookapp.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +56,23 @@ public class BookAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.book_item, null);
         } else viewProduct = view;
         Book book = (Book) getItem(i);
-        ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(book.getImage());
+        Bitmap image = book.getImage();
+        if(image != null)
+        {
+            ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(book.getImage());
+        }
         ((TextView) viewProduct.findViewById(R.id.nameBook)).setText("Tiêu đề: " + book.getTitle() + "");
         Author author = authorHandler.getAuthorWithID(book.getAuthor());
-        ((TextView) viewProduct.findViewById(R.id.authorBook)).setText("Tác giả: " + author.getName() + "");
+        if(author != null)
+        {
+            ((TextView) viewProduct.findViewById(R.id.authorBook)).setText("Tác giả: " + author.getName() + "");
+        }
         Category category = categoryHandler.getCategoryWithID(book.getCategory());
-        ((TextView) viewProduct.findViewById(R.id.CategoryBook)).setText("Thể loại: " + category.getName() + "");
+        if(category != null)
+        {
+            ((TextView) viewProduct.findViewById(R.id.CategoryBook)).setText("Thể loại: " + category.getName() + "");
+
+        }
         return viewProduct;
     }
 

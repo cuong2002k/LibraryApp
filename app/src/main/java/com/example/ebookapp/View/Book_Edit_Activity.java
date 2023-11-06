@@ -35,6 +35,7 @@ import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
+import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
 
 import java.io.FileNotFoundException;
@@ -84,7 +85,7 @@ public class Book_Edit_Activity extends AppCompatActivity {
             author.setSelection(getIndexAuthor(lstAuthor, bookData.getAuthor()));
             category.setSelection(getIndexCategory(lstCategory, bookData.getCategory()));
             show_Image.setImageBitmap(bookData.getImage());
-
+            bitmapimg = bookData.getImage();
 
             delete.setVisibility(View.VISIBLE);
             delete.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +209,23 @@ public class Book_Edit_Activity extends AppCompatActivity {
 
     private Boolean checkAll()
     {
-        Boolean check = txtTile.length() > 3 && txtYear.length() > 3;
+        if(txtTile.length() <= 0)
+        {
+            OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Tiêu đề sách không được trống.");
+            return false;
+        }
+        else if(txtYear.length() <= 3)
+        {
+            OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Năm xuất bản sách không hợp lệ.");
+            return false;
+        }
+        else if(bitmapimg == null)
+        {
+            OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Hình ảnh minh họa không được trống.");
+            return false;
+        }
+
+
         return true;
     }
 
@@ -217,12 +234,15 @@ public class Book_Edit_Activity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isUpdate)
+                if(checkAll())
                 {
-                    HandleDialog(DefineAction.UPDATE);
-                }
-                else {
-                    HandleDialog(DefineAction.CREATE);
+                    if(isUpdate)
+                    {
+                        HandleDialog(DefineAction.UPDATE);
+                    }
+                    else {
+                        HandleDialog(DefineAction.CREATE);
+                    }
                 }
             }
         });

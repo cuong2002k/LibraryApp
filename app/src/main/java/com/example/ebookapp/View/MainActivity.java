@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,5 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        BookHandler handler = new BookHandler(MainActivity.this);
     }
+
 }
