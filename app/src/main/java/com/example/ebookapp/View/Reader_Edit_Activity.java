@@ -21,12 +21,13 @@ import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
 import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class Reader_Edit_Activity extends AppCompatActivity {
 
     Button save;
     Button delete;
-    EditText txtName, txtAddress, txtPhone, txtCity;
+    TextInputEditText txtName, txtAddress, txtPhone, txtCity;
     ReaderHandler handler;
     ImageView image_back;
     Reader readerData;
@@ -82,10 +83,63 @@ public class Reader_Edit_Activity extends AppCompatActivity {
     private boolean checkAllAction()
     {
 
-        boolean check = (txtName.length() > 3 && txtAddress.length() > 3 && txtPhone.length() > 3 && txtCity.length()>3) ;
+        boolean check = (checkName() && checkAddress() && checkPhone() && checkCity());
         return check;
     }
 
+    private boolean checkName()
+    {
+        int length = txtName.getText().toString().trim().length();
+        if(length == 0)
+        {
+            txtName.setError("Tên đọc giả không được trống");
+            return  false;
+        }
+        else if(length < 3)
+        {
+            txtName.setError("Tên đọc giả phải có ít nhất 3 ký tự");
+            return  false;
+        }
+        return true;
+    }
+
+    private boolean checkAddress()
+    {
+        int length = txtAddress.getText().toString().trim().length();
+        if(length == 0)
+        {
+            txtAddress.setError("Địa chỉ không được trống");
+            return  false;
+        }
+        return true;
+    }
+
+    private boolean checkPhone()
+    {
+        int length = txtPhone.getText().toString().trim().length();
+        if(length == 0)
+        {
+            txtPhone.setError("Số điện thoại không được trống");
+            return  false;
+        }
+        else if(length != 10)
+        {
+            txtPhone.setError("Số điện thoại phải đúng 10 số");
+            return  false;
+        }
+        return true;
+    }
+
+    private boolean checkCity()
+    {
+        int length = txtCity.getText().toString().trim().length();
+        if(length == 0)
+        {
+            txtCity.setError("Tên đọc giả không được trống");
+            return  false;
+        }
+        return true;
+    }
     private void handleSaveButton(Boolean isUpdate)
     {
         save.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +155,6 @@ public class Reader_Edit_Activity extends AppCompatActivity {
                         HandleDialog(DefineAction.CREATE);
                     }
                 }
-                else{
-                    OKAlert.ShowOkeAlert(Reader_Edit_Activity.this);
-                }
-
             }
         });
     }
@@ -116,10 +166,10 @@ public class Reader_Edit_Activity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        String name = txtName.getText().toString();
+                        String name = txtName.getText().toString().toUpperCase();
                         String address = txtAddress.getText().toString();
                         String phone = txtPhone.getText().toString();
-                        String city = txtCity.getText().toString();
+                        String city = txtCity.getText().toString().toUpperCase();
                         if ( Action == DefineAction.UPDATE)
                         {
                             Reader reader = new Reader(readerData.getReaderId(),name,address,phone,city);

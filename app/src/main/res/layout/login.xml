@@ -88,7 +88,7 @@
                 android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
-        <Button
+        <android.widget.Button
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"

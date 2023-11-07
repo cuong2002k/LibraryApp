@@ -17,12 +17,13 @@ import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class Category_Edit_Activity extends AppCompatActivity {
 
     Button saveCategory;
     Button deleteCategory;
-    EditText txtCategory;
+    TextInputEditText txtCategory;
     CategoryHandler handler;
     ImageView image_back;
     Category category;
@@ -65,8 +66,15 @@ public class Category_Edit_Activity extends AppCompatActivity {
 
     private Boolean checkCategoryName()
     {
-        if(txtCategory.length() < 3)
+        int length = txtCategory.getText().toString().trim().length();
+        if(length == 0)
         {
+            txtCategory.setError("Tên thể loại không được trống");
+            return false;
+        }
+        else if(length < 5)
+        {
+            txtCategory.setError("Tên thể loại phai tồn tại ít nhất 5 ký tự");
             return false;
         }
         return true;
@@ -99,10 +107,6 @@ public class Category_Edit_Activity extends AppCompatActivity {
                         HandleDialog(DefineAction.CREATE);
                     }
                 }
-                else {
-                    OKAlert.ShowOkeAlert(Category_Edit_Activity.this);
-                }
-
             }
         });
     }

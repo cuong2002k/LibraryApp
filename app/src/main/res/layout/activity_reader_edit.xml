@@ -23,94 +23,87 @@
             android:id="@+id/btn_Back"
             />
     </LinearLayout>
-    <LinearLayout
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:hint="Tên đọc giả"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:helperText="Tên không được trống và có ít nhất 3 kí tự"
+        app:helperTextTextColor="#FA7070"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Tên"
-            android:textAlignment="center"
-            />
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:id="@+id/nameReader"
-            android:layout_marginLeft="20dp"
-            />
-    </LinearLayout>
-    <LinearLayout
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:hint="Địa chỉ"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:helperText="Địa chỉ không được trống"
+        app:helperTextTextColor="#FA7070"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Địa chỉ"
-            android:textAlignment="center"
-            />
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:id="@+id/addressReader"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-    <LinearLayout
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:hint="Số điện thoại"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:helperText="Số điện thoại phải có 10 kí tự"
+        app:helperTextTextColor="#FA7070"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Điện thoại"
-            android:textAlignment="center"
-            />
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:inputType="number"
             android:id="@+id/phoneReader"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:hint="Thành phố"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:helperText="Thành phố không được trống"
+        app:helperTextTextColor="#FA7070"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Thành phố"
-            android:textAlignment="center"
-            />
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
             android:id="@+id/cityReader"
-            android:layout_marginLeft="20dp"
-            />
-
-    </LinearLayout>
-
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,7 +111,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         >
-        <Button
+        <android.widget.Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
@@ -127,7 +120,7 @@
             android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Save"/>
-        <Button
+        <android.widget.Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"

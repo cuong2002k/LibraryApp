@@ -57,7 +57,7 @@
 
             ></TextView>
 
-        <Button
+        <android.widget.Button
             android:layout_width="350dp"
             android:layout_height="60dp"
             android:background="@drawable/button_bg"

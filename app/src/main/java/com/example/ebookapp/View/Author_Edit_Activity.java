@@ -18,12 +18,13 @@ import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class Author_Edit_Activity extends AppCompatActivity {
 
     Button saveAuthor;
     Button deleteAuthor;
-    EditText txtAuthor;
+    TextInputEditText txtAuthor;
     AuthorHandler handler;
     ImageView image_back;
 
@@ -78,7 +79,17 @@ public class Author_Edit_Activity extends AppCompatActivity {
 
     private boolean checkName()
     {
-        if(txtAuthor.length() < 3) return  false;
+        int length = txtAuthor.getText().toString().trim().length();
+        if(length == 0)
+        {
+            txtAuthor.setError("Tên tác giả không được trống");
+            return  false;
+        }
+        else if(length < 3)
+        {
+            txtAuthor.setError("Tên tác giả phải tồn tại ít nhất 3 ký tự");
+            return false;
+        }
         return true;
     }
 
@@ -97,10 +108,6 @@ public class Author_Edit_Activity extends AppCompatActivity {
                         HandleDialog(DefineAction.CREATE);
                     }
                 }
-                else{
-                    OKAlert.ShowOkeAlert(Author_Edit_Activity.this);
-                }
-
             }
         });
     }

@@ -21,47 +21,48 @@
             android:id="@+id/btn_Back_Author"
             />
     </LinearLayout>
-    <LinearLayout
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="25dp"
+        android:hint="Tên tác giả"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
+        app:endIconMode="clear_text"
+        app:counterEnabled="true"
+        app:helperText="Tên không được trống và có ít nhất 3 kí tự"
+        app:helperTextTextColor="#FA7070"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Name"/>
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:textSize="20dp"
             android:id="@+id/AuthorName"
-            />
-
-    </LinearLayout>
-
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <Button
+        <android.widget.Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
             android:text="Save"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Save_Author"/>
-        <Button
+        <android.widget.Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_1"
             android:layout_marginLeft="25dp"
             android:text="Delete"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Delete_Author"
             />
