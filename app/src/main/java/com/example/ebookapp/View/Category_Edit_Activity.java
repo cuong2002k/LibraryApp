@@ -35,7 +35,7 @@ public class Category_Edit_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_edit);
         doBackListCategory();
-        deleteCategory = findViewById(R.id.btn_Delete_Category);
+        deleteCategory = findViewById(R.id.btn_Delete);
         handler = new CategoryHandler(this);
         txtCategory = findViewById(R.id.txtNameCategory);
 
@@ -93,7 +93,7 @@ public class Category_Edit_Activity extends AppCompatActivity {
 
     private void HandleSaveCategory(Boolean isUpdate)
     {
-        saveCategory = findViewById(R.id.btn_Save_Category);
+        saveCategory = findViewById(R.id.btn_Save);
         saveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

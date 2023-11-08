@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ebookapp.Adapter.AuthorAdapter;
+import com.example.ebookapp.Adapter.AuthorArrayAdapter;
 import com.example.ebookapp.Adapter.CategoryAdapter;
+import com.example.ebookapp.Adapter.CategoryArrayAdapter;
 import com.example.ebookapp.AlertDialogUtil;
 import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.AuthorHandler;
@@ -37,6 +40,7 @@ import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
 import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,8 +48,8 @@ import java.util.ArrayList;
 
 public class Book_Edit_Activity extends AppCompatActivity {
     Button save, delete, choseImage;
-    EditText txtTile, txtYear;
-    Spinner author, category;
+    TextInputEditText txtTile, txtYear;
+    AutoCompleteTextView author, category;
     BookHandler handler;
     ImageView image_back, show_Image;
     Book bookData;
@@ -56,7 +60,8 @@ public class Book_Edit_Activity extends AppCompatActivity {
     Bitmap bitmapimg;
     Author selectAuthor;
     Category selectCategory;
-
+    AuthorHandler authorHandler;
+    CategoryHandler categoryHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +74,9 @@ public class Book_Edit_Activity extends AppCompatActivity {
         delete = findViewById(R.id.btn_Delete);
         image_back = findViewById(R.id.btn_Back);
         show_Image = findViewById(R.id.imageBook);
-
         handler = new BookHandler(Book_Edit_Activity.this);
-
+        authorHandler = new AuthorHandler(Book_Edit_Activity.this);
+        categoryHandler = new CategoryHandler(Book_Edit_Activity.this);
         Intent intent = getIntent();
         boolean isUpdate = intent.getBooleanExtra("isUpdate", false);
         fillSpinner();
@@ -82,8 +87,10 @@ public class Book_Edit_Activity extends AppCompatActivity {
             bookData = handler.getBookWithID(idBook);
             txtTile.setText(bookData.getTitle().toString());
             txtYear.setText(bookData.getYear().toString());
-            author.setSelection(getIndexAuthor(lstAuthor, bookData.getAuthor()));
-            category.setSelection(getIndexCategory(lstCategory, bookData.getCategory()));
+            selectAuthor = authorHandler.getAuthorWithID(bookData.getAuthor());
+            selectCategory = categoryHandler.getCategoryWithID(bookData.getCategory());
+            author.setText(selectAuthor.getName());
+            category.setText(selectCategory.getName());
             show_Image.setImageBitmap(bookData.getImage());
             bitmapimg = bookData.getImage();
 
@@ -119,65 +126,37 @@ public class Book_Edit_Activity extends AppCompatActivity {
     {
         author = findViewById(R.id.authorBook);
         category = findViewById(R.id.categoryBook);
-        AuthorHandler authorHandler = new AuthorHandler(Book_Edit_Activity.this);
-        CategoryHandler categoryHandler = new CategoryHandler(Book_Edit_Activity.this);
+
 
         lstAuthor = authorHandler.getall();
         lstCategory = categoryHandler.getAll();
 
-        AuthorAdapter authorAdapter = new AuthorAdapter(lstAuthor){
-            @Override
-            public View getView(int i, View view, ViewGroup viewGroup) {
-                View viewProduct;
-                if (view == null) {
-                    viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
-                } else viewProduct = view;
-                Author author = (Author) getItem(i);
-                ((TextView) viewProduct.findViewById(R.id.txtID)).setText("");
-                ((TextView) viewProduct.findViewById(R.id.txtName)).setText(author.getName() + "");
-                return viewProduct;
-            }
-        };
+        AuthorArrayAdapter authorAdapter = new AuthorArrayAdapter(Book_Edit_Activity.this,
+                android.R.layout.simple_list_item_1,
+                lstAuthor);
+        CategoryArrayAdapter categoryAdapter = new CategoryArrayAdapter(Book_Edit_Activity.this,
+                android.R.layout.simple_list_item_1, lstCategory);
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(lstCategory){
-            @Override
-            public View getView(int i, View view, ViewGroup viewGroup) {
-                View viewProduct;
-                if (view == null) {
-                    viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
-                } else viewProduct = view;
-                Category category = (Category) getItem(i);
-                ((TextView) viewProduct.findViewById(R.id.txtID)).setText("");
-                ((TextView) viewProduct.findViewById(R.id.txtName)).setText(category.getName() + "");
-                return viewProduct;
-            }
-        };
 
         author.setAdapter(authorAdapter);
         category.setAdapter(categoryAdapter);
-
-        author.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        author.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectAuthor = lstAuthor.get(i);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Author results = (Author) parent.getItemAtPosition(position);
+                selectAuthor = results;
             }
-
+        });
+        category.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category results = (Category) parent.getItemAtPosition(position);
+                selectCategory = results;
             }
         });
 
-        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectCategory = lstCategory.get(i);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
+
 
 
     }
@@ -188,14 +167,6 @@ public class Book_Edit_Activity extends AppCompatActivity {
         startActivityForResult(intent, GALLERY_REQ_CODE);
     }
 
-    private int getIndexAuthor(ArrayList<Author> lstItem, int idItem)
-    {
-        for(int i = 0; i < lstItem.size(); i++)
-        {
-            if(lstItem.get(i).getId() == idItem) return i;
-        }
-        return 0;
-    }
 
     private int getIndexCategory(ArrayList<Category> lstItem, int idItem)
     {
@@ -206,27 +177,60 @@ public class Book_Edit_Activity extends AppCompatActivity {
         return 0;
     }
 
-
-    private Boolean checkAll()
+    private boolean checkTitle()
     {
-        if(txtTile.length() <= 0)
+        int leng = txtTile.getText().toString().trim().length();
+        if(leng == 0)
         {
-            OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Tiêu đề sách không được trống.");
+            txtTile.setError("Tiêu đề sách không được trống");
             return false;
         }
-        else if(txtYear.length() <= 3)
-        {
-            OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Năm xuất bản sách không hợp lệ.");
+        return true;
+    }
+
+    private  boolean checkYear()
+    {
+        int leng = txtYear.getText().toString().trim().length();
+        if(leng == 0){
+            txtYear.setError("Năm xuất bản sách không được trống.");
             return false;
         }
-        else if(bitmapimg == null)
+        return true;
+    }
+
+    private boolean checkImage()
+    {
+        if(bitmapimg == null)
         {
             OKAlert.ShowOkeAlert(Book_Edit_Activity.this, "Hình ảnh minh họa không được trống.");
             return false;
         }
+        return  true;
+    }
 
-
+    private boolean checkCategory()
+    {
+        if(selectCategory == null)
+        {
+            category.setError("Vui lòng chọn thể loại sách");
+            return false;
+        }
         return true;
+    }
+    private boolean checkAuthor()
+    {
+        if(selectAuthor == null)
+        {
+            category.setError("Vui lòng chọn thể tác sách");
+            return false;
+        }
+        return true;
+    }
+
+
+    private Boolean checkAll()
+    {
+        return checkTitle() && checkYear() && checkAuthor() && checkCategory() && checkImage();
     }
 
     private void handleSaveButton(Boolean isUpdate)

@@ -22,172 +22,171 @@
             android:id="@+id/btn_Back"
             />
     </LinearLayout>
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:layout_height="match_parent"
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Đọc giả"
-            android:textAlignment="center"
-            />
-        <Spinner
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:id="@+id/readerSpinner"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Sách"
-            android:textAlignment="center"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_choose"
-            android:background="#6499E9"
-            android:text="Chọn hình ảnh"
-            android:textAllCaps="false"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Danh Sách Mượn"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:id="@+id/lvBook"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Ngày mượn"
-            android:paddingRight="10dp"
-            android:textAlignment="center"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/borrowDay"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:hint="Chọn Ngày"
-            />
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:helperText="Đọc giả không được trống"
+                android:hint="Chọn đọc giả mượn sách">
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:id="@+id/readerSpinner"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Ngày trả"
-            android:textAlignment="center"
-            android:paddingRight="10dp"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/returnDay"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:hint="Chọn ngày"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Thời điểm trả"
-            android:paddingRight="10dp"
-            android:textAlignment="center"
-            android:id="@+id/txtret"
-
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/returnTime"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:hint="Chọn ngày"
-            />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                >
+                <android.widget.Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_choose"
+                    android:background="#6499E9"
+                    android:text="Chọn hình ảnh"
+                    android:textAllCaps="false"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Danh Sách Mượn"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvBook"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="#6499E9"
-            android:layout_marginLeft="25dp"
-            android:text="Lưu"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:id="@+id/btn_Save"/>
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="#6499E9"
-            android:layout_marginLeft="25dp"
-            android:text="Xóa"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:id="@+id/btn_Delete"
-            />
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn ngày mượn"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:counterEnabled="true"
+                app:helperText="Ngày mượn sách không được trống"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/borrowDay"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn ngày trả"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:counterEnabled="true"
+                app:helperText="Ngày trả sách không được trống"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/returnDay"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tdtLayout"
+                android:hint="Chọn thời điểm trả"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:counterEnabled="true"
+                app:helperText="Thời điểm trả sách không được trống"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/returnTime"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <android.widget.Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6499E9"
+                    android:layout_marginLeft="25dp"
+                    android:text="Lưu"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:id="@+id/btn_Save"/>
+                <android.widget.Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6499E9"
+                    android:layout_marginLeft="25dp"
+                    android:text="Xóa"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:id="@+id/btn_Delete"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

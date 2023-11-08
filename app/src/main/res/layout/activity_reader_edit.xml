@@ -112,18 +112,18 @@
         android:layout_marginTop="10dp"
         >
         <android.widget.Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
+            android:background="#6499E9"
             android:layout_marginLeft="25dp"
             android:text="Lưu"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:id="@+id/btn_Save"/>
         <android.widget.Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
+            android:background="#6499E9"
             android:layout_marginLeft="25dp"
             android:text="Xóa"
             android:textAllCaps="false"

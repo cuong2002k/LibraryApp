@@ -10,16 +10,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.ebookapp.Adapter.BookAdapter;
-import com.example.ebookapp.Adapter.ReaderAdapter;
+import com.example.ebookapp.Adapter.ReaderArrayAdapter;
 import com.example.ebookapp.AlertDialogUtil;
 import com.example.ebookapp.CODE;
 import com.example.ebookapp.DatabaseHandler.BookHandler;
@@ -28,9 +26,11 @@ import com.example.ebookapp.DatabaseHandler.ReaderHandler;
 import com.example.ebookapp.DefineAction;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Borrowing;
-import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
+import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,12 +38,10 @@ import java.util.Calendar;
 public class Borrowing_Edit_Activity extends AppCompatActivity {
 
     ArrayList<Reader> lstReader;
-    Reader reader;
-    ReaderAdapter readerAdapter;
-    Spinner readerSpinner;
-
-    EditText brDay, rtDay, brTime;
-
+    Reader selectReader;
+    ReaderArrayAdapter readerAdapter;
+    AutoCompleteTextView readerSpinner;
+    TextInputEditText brDay, rtDay, brTime;
     ArrayList<Book> lstChooseBook;
     ArrayList<Book> lstBook;
     BookAdapter bookDialogAdapter;
@@ -181,12 +179,12 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
     }
     private void HandlerReturnTime(Boolean isUpdate)
     {
+
         brTime = findViewById(R.id.returnTime);
         if(isUpdate == false)
         {
-            brTime.setVisibility(View.GONE);
-            TextView tv = findViewById(R.id.txtret);
-            tv.setVisibility(View.GONE);
+            TextInputLayout textInputLayout = findViewById(R.id.tdtLayout);
+            textInputLayout.setVisibility(View.GONE);
         }
         else {
             if(isUpdate)
@@ -296,29 +294,20 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
     private void HandlerChooseReader(Boolean isUpdate)
     {
         lstReader = readerHandler.getAllReader();
-        readerAdapter = new ReaderAdapter(lstReader);
+        readerAdapter = new ReaderArrayAdapter(Borrowing_Edit_Activity.this, android.R.layout.simple_list_item_1,lstReader);
         readerSpinner = findViewById(R.id.readerSpinner);
         readerSpinner.setAdapter(readerAdapter);
         if(isUpdate)
         {
-            for(int i = 0; i < lstReader.size(); i++)
-            {
-                if(lstReader.get(i).getReaderId() == borrowingData.getReaderId())
-                {
-                    readerSpinner.setSelection(i);
-                    break;
-                }
-            }
+            selectReader = readerHandler.getReaderWithID(borrowingData.getReaderId());
+            readerSpinner.setText(
+                    selectReader.getName()
+            );
         }
-        readerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        readerSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                reader = lstReader.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectReader = (Reader) adapterView.getItemAtPosition(i);
             }
         });
     }
@@ -330,13 +319,18 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isUpdate)
+                if(checkAll())
                 {
-                    HandleDialog(DefineAction.UPDATE);
+                    if(isUpdate)
+                    {
+                        if(checkReturnTime())
+                        HandleDialog(DefineAction.UPDATE);
+                    }
+                    else {
+                        HandleDialog(DefineAction.CREATE);
+                    }
                 }
-                else {
-                    HandleDialog(DefineAction.CREATE);
-                }
+
             }
         });
     }
@@ -348,7 +342,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        int readerId = reader.getReaderId();
+                        int readerId = selectReader.getReaderId();
                         //brDay, returnDay, brTime;
                         String borrowDay = brDay.getText().toString();
                         String returnDay = rtDay.getText().toString();
@@ -386,7 +380,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
     {
         delete = findViewById(R.id.btn_Delete);
 
-        if(!isUpdate) delete.setVisibility(View.VISIBLE);
+        if(!isUpdate) delete.setVisibility(View.GONE);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -407,6 +401,65 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         }
     }
 
+    private Boolean checkAll()
+    {
+        return checkReader() && checkListBook() && checkBorDay() && checkReturnDay();
+    }
 
+    private boolean checkReader()
+    {
+        if(selectReader == null)
+        {
+            readerSpinner.setError("Vui lòng chọn đọc giả mượn sách");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checkListBook()
+    {
+        if(lstChooseBook.size() == 0)
+        {
+            OKAlert.ShowOkeAlert(Borrowing_Edit_Activity.this, "Danh sách mượn trống");
+            return false;
+
+        }
+        return true;
+    }
+
+    boolean checkBorDay()
+    {
+        int leng = brDay.getText().toString().trim().length();
+        if(leng == 0)
+
+        {
+            brDay.setError("Ngày mượn không được trống");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checkReturnDay()
+    {
+        int leng = rtDay.getText().toString().trim().length();
+        if(leng == 0)
+
+        {
+            rtDay.setError("Ngày trả không được trống");
+            return false;
+        }
+        return true;
+    }
+
+    boolean checkReturnTime()
+    {
+        int leng = brTime.getText().toString().trim().length();
+        if(leng == 0)
+        {
+            brTime.setError("Thời điểm trả không được trống");
+            return false;
+        }
+        return true;
+    }
 
 }

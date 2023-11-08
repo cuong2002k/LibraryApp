@@ -41,30 +41,30 @@
             android:id="@+id/AuthorName"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
         <android.widget.Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
+            android:background="#6499E9"
             android:layout_marginLeft="25dp"
-            android:text="Save"
+            android:text="Lưu"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:id="@+id/btn_Save_Author"/>
+            android:id="@+id/btn_Save"/>
         <android.widget.Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
+            android:background="#6499E9"
             android:layout_marginLeft="25dp"
-            android:text="Delete"
+            android:text="Xóa"
             android:textAllCaps="false"
             android:textColor="#fff"
-            android:id="@+id/btn_Delete_Author"
+            android:id="@+id/btn_Delete"
             />
     </LinearLayout>
 

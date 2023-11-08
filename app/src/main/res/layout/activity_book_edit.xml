@@ -22,167 +22,144 @@
             android:id="@+id/btn_Back"
             />
     </LinearLayout>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
+        android:layout_height="match_parent"
+
         >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Tiêu đề"
-            android:textAlignment="center"
-            />
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:id="@+id/titleBook"
-            android:layout_marginLeft="20dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Năm xuất bản"
-            android:textAlignment="center"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:id="@+id/yearBook"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tiêu đề sách"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                app:endIconMode="clear_text"
+                app:counterEnabled="true"
+                app:helperText="Tiêu đề sách không được trống"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/titleBook"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Năm xuất bản"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:endIconMode="clear_text"
+                app:counterEnabled="true"
+                app:helperText="Năm xuất bản không được trống"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/yearBook"
+                    android:inputType="number"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Tác giả"
-            android:textAlignment="center"
-            />
-        <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/authorBook"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:helperText="Tác giả không được trống"
+                android:hint="Chọn tác giả">
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:id="@+id/authorBook"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            >
-        </Spinner>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                app:helperTextTextColor="#FA7070"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:helperText="Thể loại sách không được trống"
+                android:hint="Chọn thể loại sách">
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:id="@+id/categoryBook"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+                <android.widget.Button
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6499E9"
+                    android:text="Chọn hình ảnh"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"
+                    android:id="@+id/btn_image"/>
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="210dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/imageBook"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <android.widget.Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6499E9"
+                    android:layout_marginLeft="25dp"
+                    android:text="Lưu"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:id="@+id/btn_Save"/>
+                <android.widget.Button
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:background="#6499E9"
+                    android:layout_marginLeft="25dp"
+                    android:text="Xóa"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:id="@+id/btn_Delete"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp"
-        app:endIconMode="clear_text"
-        app:counterEnabled="true"
-        app:helperText="Tên không được trống và có ít nhất 3 kí tự"
-        app:helperTextTextColor="#FA7070"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:hint="Chọn tác giả">
 
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:text="Thể loại"
-            android:textAlignment="center"
-            />
-        <Spinner
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
 
-            android:id="@+id/categoryBook"
 
-            >
-
-        </Spinner>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-        <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
-
-            android:text="Chọn hình ảnh"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:id="@+id/btn_image"/>
-        <ImageView
-            android:layout_width="180dp"
-            android:layout_height="210dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/imageBook"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
-            android:layout_marginLeft="25dp"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:id="@+id/btn_Save"/>
-        <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_1"
-            android:layout_marginLeft="25dp"
-            android:text="Xóa"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:id="@+id/btn_Delete"
-            />
-    </LinearLayout>
 </LinearLayout>

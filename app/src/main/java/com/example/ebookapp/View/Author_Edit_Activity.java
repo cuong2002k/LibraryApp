@@ -34,9 +34,9 @@ public class Author_Edit_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_author);
-        saveAuthor = findViewById(R.id.btn_Save_Author);
+        saveAuthor = findViewById(R.id.btn_Save);
         txtAuthor = findViewById(R.id.AuthorName);
-        deleteAuthor = findViewById(R.id.btn_Delete_Author);
+        deleteAuthor = findViewById(R.id.btn_Delete);
         image_back = findViewById(R.id.btn_Back_Author);
 
         handler = new AuthorHandler(Author_Edit_Activity.this);
