@@ -44,7 +44,6 @@ public class CategoryAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
         } else viewProduct = view;
         Category category = (Category) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.txtID)).setText(category.getId() + "");
         ((TextView) viewProduct.findViewById(R.id.txtName)).setText("Tên thể loại :" + category.getName() + "");
         return viewProduct;
     }

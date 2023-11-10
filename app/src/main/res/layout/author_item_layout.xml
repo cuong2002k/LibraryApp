@@ -16,34 +16,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID"
-                android:textSize="20dp"
-                android:id="@+id/txtID"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:gravity="center_vertical|center"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center"
-                android:text="Name"
-                android:textSize="20dp"
-                android:layout_weight="1"
-
+                android:text="Tile"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:id="@+id/txtName"
                 />
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

@@ -324,7 +324,10 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
                     if(isUpdate)
                     {
                         if(checkReturnTime())
-                        HandleDialog(DefineAction.UPDATE);
+                        {
+                            HandleDialog(DefineAction.UPDATE);
+                        }
+
                     }
                     else {
                         HandleDialog(DefineAction.CREATE);
@@ -418,7 +421,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
 
     boolean checkListBook()
     {
-        if(lstChooseBook.size() == 0)
+        if(lstBook.size() == 0)
         {
             OKAlert.ShowOkeAlert(Borrowing_Edit_Activity.this, "Danh sách mượn trống");
             return false;

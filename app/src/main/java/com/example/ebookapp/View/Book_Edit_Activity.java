@@ -167,16 +167,6 @@ public class Book_Edit_Activity extends AppCompatActivity {
         startActivityForResult(intent, GALLERY_REQ_CODE);
     }
 
-
-    private int getIndexCategory(ArrayList<Category> lstItem, int idItem)
-    {
-        for(int i = 0; i < lstItem.size(); i++)
-        {
-            if(lstItem.get(i).getId() == idItem) return i;
-        }
-        return 0;
-    }
-
     private boolean checkTitle()
     {
         int leng = txtTile.getText().toString().trim().length();

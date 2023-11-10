@@ -1,6 +1,10 @@
 package com.example.ebookapp.Model;
 
+
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.example.ebookapp.R;
 
 import java.io.Serializable;
 

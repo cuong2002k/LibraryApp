@@ -5,62 +5,74 @@
     android:layout_height="match_parent"
 
     >
-    <LinearLayout
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textSize="20dp"
-            android:id="@+id/idBorrowing"
-            android:textAlignment="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="20dp"
-            android:id="@+id/nameReader"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone"
-        android:textSize="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/phoneReader"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="borrowDay"
-        android:textSize="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/borrowDay"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="returnDay"
-        android:textSize="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/returnDay"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="returnTime"
-        android:textSize="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/returnTime"
-        />
+        android:layout_margin="8dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/nameReader"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="phone"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/phoneReader"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Borrowday"
+                    android:id="@+id/borrowDay"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="returnDay"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/returnDay"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="returnTime"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/returnTime"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

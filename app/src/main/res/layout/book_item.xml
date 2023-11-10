@@ -4,40 +4,63 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     >
-    <ImageView
-        android:layout_width="85dp"
-        android:layout_height="100dp"
 
-        android:id="@+id/imageBook"
-        />
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name book"
-            android:textSize="20dp"
-            android:id="@+id/nameBook"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Author book"
-            android:textSize="20dp"
-            android:id="@+id/authorBook"
-            android:layout_marginTop="10dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category book"
-            android:textSize="20dp"
-            android:id="@+id/CategoryBook"
-            android:layout_marginTop="10dp"
-            />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <!-- Media -->
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:id="@+id/imageBook"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tile"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:id="@+id/nameBook"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Seccond"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/authorBook"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="thirt"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/CategoryBook"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 </LinearLayout>

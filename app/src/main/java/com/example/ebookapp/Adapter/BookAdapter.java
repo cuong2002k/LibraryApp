@@ -59,7 +59,8 @@ public class BookAdapter extends BaseAdapter {
         Bitmap image = book.getImage();
         if(image != null)
         {
-            ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(book.getImage());
+            Bitmap Resize =  Bitmap.createScaledBitmap(image, 100, 120, false);
+            ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(Resize);
         }
         ((TextView) viewProduct.findViewById(R.id.nameBook)).setText("Tiêu đề: " + book.getTitle() + "");
         Author author = authorHandler.getAuthorWithID(book.getAuthor());

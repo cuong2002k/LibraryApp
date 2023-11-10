@@ -44,7 +44,6 @@ public class AuthorAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.author_item_layout, null);
         } else viewProduct = view;
         Author author = (Author) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.txtID)).setText(author.getId() + "");
         ((TextView) viewProduct.findViewById(R.id.txtName)).setText("Tên tác giả: "+author.getName() + "");
         return viewProduct;
     }

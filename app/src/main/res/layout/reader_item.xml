@@ -4,34 +4,39 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-    <LinearLayout
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textSize="20dp"
-            android:id="@+id/idReader"
-            android:textAlignment="center"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="20dp"
-            android:id="@+id/nameReader"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone"
-        android:textSize="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/phoneReader"
-        />
+        android:layout_margin="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/nameReader"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Phone"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:id="@+id/phoneReader"
+                    />
+
+            </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

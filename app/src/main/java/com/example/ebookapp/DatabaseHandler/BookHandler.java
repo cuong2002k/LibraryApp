@@ -1,5 +1,6 @@
 package com.example.ebookapp.DatabaseHandler;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,8 @@ import android.widget.BaseAdapter;
 
 import com.example.ebookapp.Database.DatabaseHandler;
 import com.example.ebookapp.Model.Book;
+import com.example.ebookapp.R;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 

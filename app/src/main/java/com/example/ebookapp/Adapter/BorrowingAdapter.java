@@ -54,8 +54,6 @@ public class BorrowingAdapter extends BaseAdapter {
         } else viewProduct = view;
 
         Borrowing borrowing = (Borrowing) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.idBorrowing)).setText(borrowing.getBorrowingId() + "");
-
         Reader reader = readerHandler.getReaderWithID(borrowing.getReaderId());
 
         ((TextView) viewProduct.findViewById(R.id.nameReader)).setText("Tên đọc giả : " + reader.getName() + "");

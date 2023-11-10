@@ -47,7 +47,6 @@ public class ReaderAdapter extends BaseAdapter {
             viewProduct = View.inflate(viewGroup.getContext(), R.layout.reader_item, null);
         } else viewProduct = view;
         Reader reader = (Reader) getItem(i);
-        ((TextView) viewProduct.findViewById(R.id.idReader)).setText(reader.getReaderId() + "");
         ((TextView) viewProduct.findViewById(R.id.nameReader)).setText("Tên đọc giả : " + reader.getName() + "");
         ((TextView) viewProduct.findViewById(R.id.phoneReader)).setText("Điện thoại : " + reader.getPhone() + "");
         return viewProduct;
