@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EbookApp">
         <activity
+            android:name=".View.Statistical_Activity"
+            android:exported="true" />
+        <activity
             android:name=".View.Borrowing_Edit_Activity"
             android:exported="true" />
         <activity

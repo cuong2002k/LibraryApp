@@ -6,15 +6,19 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.ebookapp.Adapter.BookAdapter;
 import com.example.ebookapp.Adapter.ReaderArrayAdapter;
@@ -24,16 +28,21 @@ import com.example.ebookapp.DatabaseHandler.BookHandler;
 import com.example.ebookapp.DatabaseHandler.BorrowingHandler;
 import com.example.ebookapp.DatabaseHandler.ReaderHandler;
 import com.example.ebookapp.DefineAction;
+import com.example.ebookapp.Model.Author;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Borrowing;
+import com.example.ebookapp.Model.Category;
 import com.example.ebookapp.Model.Reader;
 import com.example.ebookapp.OKAlert;
 import com.example.ebookapp.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Borrowing_Edit_Activity extends AppCompatActivity {
 
@@ -48,7 +57,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
     BookAdapter lvBookAdapter;
 
 
-    ListView lvListBrBook;
+    GridView lvListBrBook;
 
     ImageView image_back;
 
@@ -75,7 +84,6 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         {
             Bundle bundle = intent.getBundleExtra("Borrow");
             borrowingData = (Borrowing) bundle.getSerializable("Borrow");
-
         }
 
 
@@ -183,42 +191,43 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         brTime = findViewById(R.id.returnTime);
         if(isUpdate == false)
         {
-            TextInputLayout textInputLayout = findViewById(R.id.tdtLayout);
+            TextInputLayout textInputLayout = findViewById(R.id.tilreturnTime);
             textInputLayout.setVisibility(View.GONE);
         }
         else {
             if(isUpdate)
             {
                 brTime.setText(borrowingData.getReturnTime());
+                brTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // on below line we are getting
+                        // the instance of our calendar.
+                        final Calendar c = Calendar.getInstance();
+
+                        int year = c.get(Calendar.YEAR);
+                        int month = c.get(Calendar.MONTH);
+                        int day = c.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                                Borrowing_Edit_Activity.this,
+                                new DatePickerDialog.OnDateSetListener() {
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year,
+                                                          int monthOfYear, int dayOfMonth) {
+                                        // on below line we are setting date to our edit text.
+                                        brTime.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+                                    }
+                                },
+                                year, month, day);
+
+                        datePickerDialog.show();
+                    }
+                });
             }
         }
-        brTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // on below line we are getting
-                // the instance of our calendar.
-                final Calendar c = Calendar.getInstance();
 
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int day = c.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Borrowing_Edit_Activity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // on below line we are setting date to our edit text.
-                                brTime.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
-                            }
-                        },
-                        year, month, day);
-
-                datePickerDialog.show();
-            }
-        });
     }
 
     private void HandlerBRView(Boolean isUpdate)
@@ -234,7 +243,27 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
                 RemoveItemLIst(book);
             }
         }
-        lvBookAdapter = new BookAdapter(lstBook, Borrowing_Edit_Activity.this);
+        lvBookAdapter = new BookAdapter(lstBook, Borrowing_Edit_Activity.this){
+
+            @Override
+            public View getView(int i, View view, ViewGroup viewGroup) {
+                View viewProduct;
+                if (view == null) {
+                    viewProduct = View.inflate(viewGroup.getContext(), R.layout.book_item, null);
+                } else viewProduct = view;
+                Book book = (Book) getItem(i);
+                Bitmap image = book.getImage();
+                if (image != null) {
+                    Bitmap Resize = Bitmap.createScaledBitmap(image, 100, 120, false);
+                    ((ImageView) viewProduct.findViewById(R.id.imageBook)).setImageBitmap(Resize);
+                }
+                ((TextView) viewProduct.findViewById(R.id.nameBook)).setVisibility(View.GONE);
+                ((TextView) viewProduct.findViewById(R.id.authorBook)).setVisibility(View.GONE);
+                ((TextView) viewProduct.findViewById(R.id.CategoryBook)).setVisibility(View.GONE);
+                viewProduct.findViewById(R.id.lnLayoutBook).setVisibility(View.GONE);
+                return viewProduct;
+            }
+        };
 
         bookDialogAdapter = new BookAdapter(lstChooseBook, Borrowing_Edit_Activity.this);
 
@@ -323,11 +352,7 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
                 {
                     if(isUpdate)
                     {
-                        if(checkReturnTime())
-                        {
-                            HandleDialog(DefineAction.UPDATE);
-                        }
-
+                        HandleDialog(DefineAction.UPDATE);
                     }
                     else {
                         HandleDialog(DefineAction.CREATE);
@@ -445,6 +470,22 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
     boolean checkReturnDay()
     {
         int leng = rtDay.getText().toString().trim().length();
+        String borrowing = brDay.getText().toString().trim();
+        String returnDay = rtDay.getText().toString().trim();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date date1 = sdf.parse(borrowing);
+            Date date2 = sdf.parse(returnDay);
+            if(date2.compareTo(date1) < 0)
+            {
+                TextInputLayout textInputLayout = findViewById(R.id.tilreturnDay);
+                textInputLayout.setError("Ngày trả phải lớn hơn ngày mượn");
+                return false;
+            }
+        }
+        catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         if(leng == 0)
 
         {
@@ -454,15 +495,6 @@ public class Borrowing_Edit_Activity extends AppCompatActivity {
         return true;
     }
 
-    boolean checkReturnTime()
-    {
-        int leng = brTime.getText().toString().trim().length();
-        if(leng == 0)
-        {
-            brTime.setError("Thời điểm trả không được trống");
-            return false;
-        }
-        return true;
-    }
+
 
 }

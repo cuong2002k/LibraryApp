@@ -46,8 +46,4 @@
             android:divider="@android:color/transparent"
             />
     </LinearLayout>
-
-
-
-
 </FrameLayout>

@@ -12,6 +12,7 @@ import com.example.ebookapp.Database.DatabaseHandler;
 import com.example.ebookapp.Model.Book;
 import com.example.ebookapp.Model.Borrowing;
 import com.example.ebookapp.Model.BorrowingDetails;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public class BorrowingHandler {
     private DatabaseHandler handler;
@@ -177,4 +179,43 @@ public class BorrowingHandler {
         return null;
     }
 
+    public ArrayList<BarEntry> getStatistical()
+    {
+        SQLiteDatabase db = handler.getReadableDatabase();
+        Cursor data = db.rawQuery("Select * from " + DatabaseHandler.BRW_TB_NAME, null);
+        int[] result = new int[13];
+        data.moveToFirst();
+        while (!data.isAfterLast())
+        {
+            int id = data.getInt(0);
+            int readerId = data.getInt(1);
+            String borrowDay = data.getString(2);
+            String returnDay = data.getString(3);
+            String returnTime = data.getString(4);
+
+            Borrowing borrowing = new Borrowing(id, readerId, borrowDay, returnDay,returnTime);
+            String datestr = borrowing.getBorrowDay();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+            try
+            {
+                Date date = sdf.parse(datestr);
+                int month = Integer.parseInt(String.valueOf(date.getMonth()));
+                result[month-1]++;
+            }
+            catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            data.moveToNext();
+        }
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        for(int i = 1; i <= 12; i++)
+        {
+            barEntries.add(new BarEntry(i , result[i]));
+        }
+        return barEntries;
+
+    }
 }

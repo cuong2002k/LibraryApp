@@ -9,41 +9,53 @@ import com.example.ebookapp.Database.DatabaseHandler;
 import com.example.ebookapp.Model.Admin;
 import com.example.ebookapp.View.MainActivity;
 
-public class AdminHandler extends DatabaseHandler {
-
+public class AdminHandler{
+    DatabaseHandler hd;
     public AdminHandler(Context context) {
-        super(context);
+            hd = new DatabaseHandler(context);
     }
+        public int checkAdmin()
+        {
+            String sql = "Select COUNT(*) from " + DatabaseHandler.ADMIN_TB_NAME;
+            SQLiteDatabase db;
+            db = hd.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sql, null);
+            int count = 0;
+            if (cursor.moveToFirst()) {
+                count = cursor.getInt(0);
+            }
+            db.close();
+            return count;
+        }
 
-    SQLiteDatabase db;
+        public boolean insertData(Admin admin)
+        {
+            SQLiteDatabase db;
+            ContentValues value = new ContentValues();
+            value.put(DatabaseHandler.ADMIN_name, admin.getName());
+            value.put(DatabaseHandler.ADMIN_USERNAME, admin.getUsername());
+            value.put(DatabaseHandler.ADMIN_PASSWORD, admin.getPassword());
+            value.put(DatabaseHandler.ADMIN_ADDRESS, admin.getAddress());
+            db = hd.getWritableDatabase();
+            long result = db.insert(DatabaseHandler.ADMIN_TB_NAME,null,value);
+            db.close();
+            if(result == -1) return false;
+            return true;
+        }
 
-    public boolean checkAdmin()
-    {
-        String sql = "Select * from " + ADMIN_TB_NAME;
-        db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        return cursor == null;
-    }
-
-    public boolean insertData(Admin admin)
-    {
-        ContentValues value = new ContentValues();
-        value.put(ADMIN_name, admin.getName());
-        value.put(ADMIN_USERNAME, admin.getName());
-        value.put(ADMIN_PASSWORD, admin.getName());
-        value.put(ADMIN_ADDRESS, admin.getName());
-        db = getWritableDatabase();
-        long result = db.insert(ADMIN_TB_NAME,null,value);
-        if(result == -1) return false;
-        return true;
-    }
-
-    public boolean checkLogin(String userName, String password)
-    {
-        String sql = "Select * from " + ADMIN_TB_NAME + " where " + ADMIN_USERNAME + "=? and " + ADMIN_PASSWORD + "=?";
-        db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(sql, new String[] { userName, password });
-        if(cursor != null) return true;
-        return false;
-    }
+        public int checkLogin(String userName, String password)
+        {
+            SQLiteDatabase db;
+            String sql = "Select COUNT(*) from " + DatabaseHandler.ADMIN_TB_NAME + " where " + DatabaseHandler.ADMIN_USERNAME + "=? and " + DatabaseHandler.ADMIN_PASSWORD + "=?";
+            db = hd.getReadableDatabase();
+            Cursor cursor = db.rawQuery(sql, new String[] { userName, password });
+            int count = 0;
+            if (cursor != null) {
+                cursor.moveToFirst();
+                count = cursor.getInt(0);
+            }
+            db.close();
+            cursor.close();
+            return count;
+        }
 }

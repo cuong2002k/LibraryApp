@@ -70,7 +70,7 @@ public class AuthorHandler {
         try
         {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(database.AUTHOR_NAME, author.getName());
+            contentValues.put(database.AUTHOR_NAME, author.getName());//(key,value) => key = ten cot , value = data
             db = database.getWritableDatabase();
             db.insert(database.AUTHOR_TB_NAME, null, contentValues);
             db.close();

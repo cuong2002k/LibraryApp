@@ -55,6 +55,8 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textColorHint="#fff"
+            android:id="@+id/txtUsername"
+            android:textColor="#fff"
             android:paddingLeft="30dp"/>
         <EditText
             android:layout_width="350dp"
@@ -64,34 +66,14 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textColorHint="#fff"
+            android:textColor="#fff"
+            android:id="@+id/txtPassword"
+            android:inputType="textPassword"
             android:paddingLeft="30dp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            >
-            <CheckBox
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:buttonTint="@color/white"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nhớ tài khoản"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"/>
-
-        </LinearLayout>
         <android.widget.Button
             android:layout_width="350dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_bg"
             android:text="Đăng Nhập"
             android:textAllCaps="false"

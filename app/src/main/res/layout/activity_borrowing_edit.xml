@@ -64,26 +64,20 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btn_choose"
                     android:background="#6499E9"
-                    android:text="Chọn hình ảnh"
+                    android:text="Chọn Sách Mượn"
                     android:textAllCaps="false"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     />
             </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Danh Sách Mượn"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                />
-            <ListView
+            <GridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/lvBook"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:numColumns="3"
                 />
 
 
@@ -98,6 +92,7 @@
                 app:counterEnabled="true"
                 app:helperText="Ngày mượn sách không được trống"
                 app:helperTextTextColor="#FA7070"
+
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 >
                 <com.google.android.material.textfield.TextInputEditText
@@ -121,6 +116,7 @@
                 android:layout_marginBottom="10dp"
                 app:endIconMode="clear_text"
                 app:counterEnabled="true"
+                android:id="@+id/tilreturnDay"
                 app:helperText="Ngày trả sách không được trống"
                 app:helperTextTextColor="#FA7070"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -139,8 +135,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tdtLayout"
                 android:hint="Chọn thời điểm trả"
+                android:id="@+id/tilreturnTime"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="10dp"

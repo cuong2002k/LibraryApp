@@ -42,9 +42,6 @@ public class Author_Edit_Activity extends AppCompatActivity {
         handler = new AuthorHandler(Author_Edit_Activity.this);
         Intent intent = getIntent();
         boolean isUpdate = intent.getBooleanExtra("isUpdate", false);
-
-
-
         if(isUpdate)
         {
             Bundle bundle = intent.getBundleExtra("Author");

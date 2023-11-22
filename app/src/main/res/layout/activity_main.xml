@@ -68,11 +68,5 @@
             android:letterSpacing="0.04"
             android:id="@+id/btnStarted"
             />
-
-
-
     </LinearLayout>
-
-
-
 </LinearLayout>
